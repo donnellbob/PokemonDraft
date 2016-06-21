@@ -1,0 +1,33 @@
+.container{
+	margin-left: 25%;
+	margin-right: 30%;
+	margin-top: 45px;
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 1000px){
+	.container{
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.server-table{
+		width: 100%;
+	}
+}
+
+.server-table{
+	width: 80%;
+	margin: 0px;
+}
+
+.server-table tr, td, th{
+	margin: 10px;
+	padding: 20px;
+}
+.server-table th{
+	font-size: 20px;
+	background-color: black;
+	color: white;
+}
