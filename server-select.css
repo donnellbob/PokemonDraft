@@ -31,3 +31,12 @@
 	background-color: black;
 	color: white;
 }
+
+.lobbyModal {
+	margin-top: 20px;
+}
+
+.createGameButton {
+	margin: 20px;
+	padding: 10px;
+}

@@ -1,0 +1,35 @@
+<button type="button" class="btn btn-success createGameButton" data-toggle="modal" data-target="#createGame">Create Game</button>
+
+<div id="createGame" class="modal fade" role="dialog" ng-controller="serverTableController">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Game</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group createGame">
+          <!--Set Game name-->
+          <label class="lobbyModal" for="gameName">Set Game Name:</label>
+          <input type="text" class="form-control" id="gameName">
+
+          <!-- Set name -->
+          <label class="lobbyModal" for="user">Set Your Name:</label>
+          <input type="text" class="form-control" id="user">
+
+          <!-- Set password -->
+          <label class="lobbyModal" for="user">Set Password (optional):</label>
+          <input type="text" class="form-control" id="password">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- needs to direct to another page :) -->
+        <button type="button" class="btn btn-success"  data-dismiss="modal" ng-click ="createGame(game.id)">Create Game</button>
+      </div>
+    </div>
+
+  </div>
+</div>
