@@ -20,6 +20,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<!-- JQUERY -->
+<script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
 
 
 <!-- STLYE SHEET -->
@@ -32,6 +34,7 @@
 <!-- Controllers -->
 <script src="controllers/serverTableController.js"></script>
 
+<script src="views/animate/refresh.js"></script>
 
 <!-- Socket.IO -->
 <script src="/socket.io/socket.io.js"></script>  
@@ -50,7 +53,9 @@
       <th>Host</th>
       <th>Players</th>
       <th>Private</th>
-      <th><button type="button" class="btn btn-primary btn-lg" ng-click="refreshServerTable()"> <span class ="glyphicon glyphicon-refresh" aria-hidden="true"></span></button></th>
+      <th><button type="button" class="btn btn-primary btn-lg" ng-click="refreshServerTable()"> 
+            <a id="update" href="#"><i class="glyphicon glyphicon-refresh" style="color:white"></i></a>
+          </button></th>
 
       <tr ng-repeat="game in hostedGames" >
           <td>{{game.name}}</td>
