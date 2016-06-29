@@ -13,21 +13,21 @@
         <div class="form-group createGame">
           <!--Set Game name-->
           <label class="lobbyModal" for="gameName">Set Game Name:</label>
-          <input type="text" class="form-control" id="gameName">
+          <input type="text" class="form-control" id="gameName" ng-model = "gameName">
 
           <!-- Set name -->
           <label class="lobbyModal" for="user">Set Your Name:</label>
-          <input type="text" class="form-control" id="user">
+          <input type="text" class="form-control" id="name" ng-model = "name">
 
           <!-- Set password -->
           <label class="lobbyModal" for="user">Set Password (optional):</label>
-          <input type="text" class="form-control" id="password">
+          <input type="text" class="form-control" id="password" ng-model = "password">
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <!-- needs to direct to another page :) -->
-        <button type="button" class="btn btn-success"  data-dismiss="modal" ng-click ="createGame(game.id)">Create Game</button>
+        <button type="button" class="btn btn-success" ng-disabled = "!(!!gameName && !!name)" data-dismiss="modal" ng-click ="createGame(usersID, gameName, name, password)">Create Game</button>
       </div>
     </div>
 
