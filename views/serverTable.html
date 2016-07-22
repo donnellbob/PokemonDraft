@@ -1,0 +1,27 @@
+<header>
+  <!-- Button animation -->
+  <script src="views/animate/refresh.js"></script>
+  <!-- Style sheet -->
+  <link rel="stylesheet" href="server-select.css">
+
+</header>
+<div ng-include="'views/createGame.html'"></div>
+
+<table class="server-table table-hover table-striped">
+
+  <th>Room Name</th>
+  <th>Host</th>
+  <th>Players</th>
+  <th>Private</th>
+  <th><button type="button" class="btn btn-primary btn-lg" ng-click="refreshServerTable()"> 
+        <a id="update" href="#"><i class="glyphicon glyphicon-refresh" style="color:white"></i></a>
+      </button></th>
+
+  <tr ng-repeat="game in hostedGames" >
+      <td>{{game.name}}</td>
+      <td>{{game.hostName}}</td>
+      <td>{{game.players}}/2</td>
+      <td>{{game.private}}</td>
+      <td><button type="button" ng-click="openModal(game.id)" class="btn btn-primary">Join</button></td>
+  </tr>
+</table>
