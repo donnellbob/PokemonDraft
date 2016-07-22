@@ -13,6 +13,6 @@ app.get('/', function(req, res,next) {
 });
 
 
-require('./model/serverSelect')(app, io);
+require('./routes/serverSelect')(app, io);
 
 server.listen(4200); 

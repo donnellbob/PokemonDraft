@@ -3,13 +3,16 @@
 <title>Pokemon Draft</title>
 
 <!-- JQUERY -->
-<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+<script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
 <!-- ANGULAR! -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
 
 <!-- Angular bootstrap  -->
 <!-- script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.7.0.js"></script> -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.js"></script>
+
 <!-- Bootstrap -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -20,53 +23,32 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-<!-- JQUERY -->
-<script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
-
 
 <!-- STLYE SHEET -->
-<link rel="stylesheet" href="server-select.css">
 
 <!-- Google fonts -->
 <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
 
 <!-- Controllers -->
+<script src="controllers/routeController.js"></script>
 <script src="controllers/serverTableController.js"></script>
+<script src="controllers/lobbyRoomController.js"></script>
 
-<script src="views/animate/refresh.js"></script>
+
 
 <!-- Socket.IO -->
 <script src="/socket.io/socket.io.js"></script>  
+
 </header>
- 
-<div class="container">
-  <!-- Create game button -->
-  <div ng-include="'views/createGame.html'"></div>
 
 
-  <!-- Join Game Modal -->
-  <!-- div ng-include="'views/joinGame.html'"></div> -->
+<body>
+	<div class="container">
 
-  <table class="server-table table-hover table-striped" ng-controller="serverTableController">
-      <th>Room Name</th>
-      <th>Host</th>
-      <th>Players</th>
-      <th>Private</th>
-      <th><button type="button" class="btn btn-primary btn-lg" ng-click="refreshServerTable()"> 
-            <a id="update" href="#"><i class="glyphicon glyphicon-refresh" style="color:white"></i></a>
-          </button></th>
+	  <div ng-view></div>
+	</div>   
 
-      <tr ng-repeat="game in hostedGames" >
-          <td>{{game.name}}</td>
-          <td>{{game.hostName}}</td>
-          <td>{{game.players}}/2</td>
-          <td>{{game.private}}</td>
-          <td><button type="button" ng-click="openModal(game.id)" class="btn btn-primary">Join</button></td>
-      </tr>
-  </table>
-</div>   
-
-
+</body>
 
 </html>

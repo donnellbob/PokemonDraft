@@ -1,28 +1,21 @@
+<div ng-controller ="serverTableController">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Join Game</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group joinGame">
+      <!-- Set name -->
+      <label class="lobbyModal" for="user">Set Your Name:</label>
+      <input type="text" class="form-control" id="user" ng-model = "usersName">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()" data-dismiss="modal">Close</button>
+    <!-- needs to direct to another page :) -->
 
-<!-- <div id="joinGame" class="modal fade" role="dialog"> -->
-  <!-- <div class="modal-dialog"> -->
-
-    <!-- Modal content-->
-    <!-- <div class="modal-content"> -->
-    <div ng-controller ="serverTableController">
-      <div class="modal-header">
-        <button type="button" class="close" ng-click="close()" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Join Game</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group joinGame">
-          <!-- Set name -->
-          <label class="lobbyModal" for="user">Set Your Name:</label>
-          <input type="text" class="form-control" id="user" ng-model = "usersName">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="close()" data-dismiss="modal">Close</button>
-        <!-- needs to direct to another page :) -->
-        <button type="button" class="btn btn-success" ng-disabled = "!(!!usersName)" data-dismiss="modal" ng-click ="joinGame(clone)">Join Game</button>
-      </div>
-      </div>
-    <!-- </div> -->
-
-  <!-- </div> -->
-<!-- </div> -->
+    <!-- One button can link to new page whilst other cannot (alternating showing) -->
+    <a type="button" class="btn btn-success" ng-disabled="true" ng-show ="!(!!usersName)">Join Game</a>
+    <a type="button" class="btn btn-success" ng-hide = "!(!!usersName)" data-dismiss="modal" ng-click ="joinGame(item)" href="#/room">Join Game</a>
+  </div>
+</div>

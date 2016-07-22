@@ -24,12 +24,12 @@ module.exports = function(app, io){
 
 
 	// Returns server list
-	app.get("/model/serverTable", function(req, res){
+	app.get("/routes/serverTable", function(req, res){
 		res.send(hostedGames);
 	});
 
 	//Adds new server to list
-	app.post("/model/serverTableUpdate", function(req, res){
+	app.post("/routes/serverTableUpdate", function(req, res){
 		hostedGames.push(req.body);
 	});
 
