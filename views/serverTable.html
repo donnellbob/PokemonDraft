@@ -2,7 +2,7 @@
   <!-- Button animation -->
   <script src="views/animate/refresh.js"></script>
   <!-- Style sheet -->
-  <link rel="stylesheet" href="server-select.css">
+  <link rel="stylesheet" href="style/server-select.css">
 
 </header>
 <div ng-include="'views/createGame.html'"></div>
@@ -14,7 +14,7 @@
   <th>Players</th>
   <th>Private</th>
   <th><button type="button" class="btn btn-primary btn-lg" ng-click="refreshServerTable()"> 
-        <a id="update" href="#"><i class="glyphicon glyphicon-refresh" style="color:white"></i></a>
+        <a id="update"><i class="glyphicon glyphicon-refresh" style="color:white"></i></a>
       </button></th>
 
   <tr ng-repeat="game in hostedGames" >

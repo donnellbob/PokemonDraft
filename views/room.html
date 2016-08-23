@@ -1,10 +1,36 @@
+<header>
+<!-- StyleSheet -->
+  <link rel="stylesheet" href="style/lobby-room.css">
+</header>
+
+<div class = "roomContainer">
 
 
-sdfsdfsdfsdfsdf
-sd
-f
-sdf
-sd
-fd
-f <h1> 3423434234 </h1>
 
+    <div class = "room">
+        <div class = "owner">
+            OWNER
+        </div>
+        <div class = "versus">
+            VS
+        </div>
+        <div class = "opponent">
+            Opponent
+        </div>
+    </div>
+
+
+    <div class = "chatbox" ng-controller="chatController">
+        <div class = "messageArea">
+            John: This is great <br>
+            Jimmy: OMG I know right <br>
+            John: I like talking lots <br>
+            Jimmy: Thats cool lets play the game <br>
+        </div>
+    
+        <form class = "inputBox form-group" ng-submit="sendMessage(message)">
+
+            <input type="text" id="messageField" class="form-control" ng-model="message">
+        </form>
+    </div>
+</div>

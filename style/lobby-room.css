@@ -1,0 +1,46 @@
+.roomContainer{ 
+	margin-top: 30%;
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+
+.chatbox{
+	position: fixed;
+	bottom: 0;
+/*	left: 19%;
+	right: 19%;*/
+	width: 60%;
+	top: 75%;
+	/*border-style: ridge;*/
+	border: 3px ridge;
+}
+.messageArea{
+	padding: 20px;
+}
+.inputBox{
+	position: fixed;
+	bottom: 0;
+	width: 58%;
+	top: 96%;
+	margin-left: 10px;
+}
+
+.room{
+	font-size: 40px;
+}
+
+.owner{
+	display: inline-block;
+}
+
+.versus{
+	display: inline-block;
+	margin-left: 42%;
+	margin-right: 42%;
+}
+
+.opponent{
+	display: inline-block;
+	float: right;
+}
