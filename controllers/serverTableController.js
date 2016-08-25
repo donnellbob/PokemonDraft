@@ -1,4 +1,4 @@
-app.controller('serverTableController', function($scope, $http, $modal, $location) {
+app.controller('serverTableController', function($scope, $http, $modal, $location, lobbyService) {
 	// server list
 	$scope.hostedGames = [];
 	$scope.usersID;
@@ -28,7 +28,6 @@ app.controller('serverTableController', function($scope, $http, $modal, $locatio
      }
 
 
-    var socket = io.connect('http://localhost:4200');
     socket.on('connect', function(data) {
     	// default namespace/room (its a lobby)
         socket.emit('initialConnection', 'New client has joined :)');
@@ -40,6 +39,7 @@ app.controller('serverTableController', function($scope, $http, $modal, $locatio
 
 	$scope.joinGame = function(id){
 		socket.emit('joinGame', id);
+        lobbyService.sessionID = id;
 		console.log("Joining room ID: " + id);
         $scope.close();
 	}

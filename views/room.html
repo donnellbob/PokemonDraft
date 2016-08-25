@@ -21,12 +21,10 @@
 
 
     <div class = "chatbox" ng-controller="chatController">
-        <div class = "messageArea">
-            John: This is great <br>
-            Jimmy: OMG I know right <br>
-            John: I like talking lots <br>
-            Jimmy: Thats cool lets play the game <br>
-        </div>
+        <p ng-repeat = "message in messages">
+            {{message.text}}
+            {{message.own}}
+        </p>
     
         <form class = "inputBox form-group" ng-submit="sendMessage(message)">
 

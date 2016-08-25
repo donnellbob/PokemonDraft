@@ -14,5 +14,9 @@ app.get('/', function(req, res,next) {
 
 
 require('./routes/serverSelect')(app, io);
+require('./routes/socket')(app, io);
+require('./routes/chatService')(app, io);
+
+
 
 server.listen(4200); 

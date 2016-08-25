@@ -9,20 +9,6 @@ module.exports = function(app, io){
 	{name: "Interesting Game", hostName: "Jay", players: 1, private: "Yes", id: '5'}
 	];
 
-	io.on('connection', function(client) {  
-	    console.log('Client connected...');
-
-	    client.on('initialConnection', function(data) {
-	        console.log(data);
-	    });
-
-	    client.on('joinGame', function(data) {
-	        client.join(data);
-	        io.sockets.in(data).emit('message', 'Successfully joined room' + data);
-	    });
-	});
-
-
 	// Returns server list
 	app.get("/routes/serverTable", function(req, res){
 		res.send(hostedGames);
