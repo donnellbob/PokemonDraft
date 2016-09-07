@@ -1,7 +1,8 @@
 app.controller('chatController', function($scope, $http, lobbyService) {
 	
 	// var socket = io();
-	$scope.messages = [{text : "Test text", own : "mine"}, {text : " second test text", own : "their"} ];
+	// [{text : "Test text", own : "mine"}, {text : " second test text", own : "their"} ]
+	$scope.messages =[];
 	$scope.sendMessage = function(message){
 
 		// Add message to chat box

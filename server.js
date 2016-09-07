@@ -3,6 +3,8 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
+var _ = require('underscore');
+var passwordhasher = require('password-hasher')
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -13,7 +15,7 @@ app.get('/', function(req, res,next) {
 });
 
 
-require('./routes/serverSelect')(app, io);
+require('./routes/serverSelect')(app, io, _, passwordhasher);
 require('./routes/socket')(app, io);
 require('./routes/chatService')(app, io);
 

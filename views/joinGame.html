@@ -12,10 +12,9 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click="close()" data-dismiss="modal">Close</button>
-    <!-- needs to direct to another page :) -->
 
     <!-- One button can link to new page whilst other cannot (alternating showing) -->
     <a type="button" class="btn btn-success" ng-disabled="true" ng-show ="!(!!usersName)">Join Game</a>
-    <a type="button" class="btn btn-success" ng-hide = "!(!!usersName)" data-dismiss="modal" ng-click ="joinGame(item)" href="#/room">Join Game</a>
+    <a type="button" class="btn btn-success" ng-hide = "!(!!usersName)" data-dismiss="modal" ng-click ="joinGame(item)">Join Game</a>
   </div>
 </div>

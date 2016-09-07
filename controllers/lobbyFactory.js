@@ -1,5 +1,7 @@
 app.factory('lobbyService', function(){
 	return {
-		sessionID : 'null'
+		sessionID : 'null',
+		hostName : '',
+		opponentName : ''
 	};
 });

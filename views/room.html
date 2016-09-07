@@ -1,31 +1,37 @@
 <header>
 <!-- StyleSheet -->
   <link rel="stylesheet" href="style/lobby-room.css">
+  <script> $(".nano").nanoScroller(); </script>
 </header>
 
-<div class = "roomContainer">
-
-
+<div class = "roomContainer" ng-controller="lobbyRoomController">
 
     <div class = "room">
         <div class = "owner">
-            OWNER
+            {{hostName}}
         </div>
         <div class = "versus">
             VS
         </div>
         <div class = "opponent">
-            Opponent
+            {{opponentName}}
+            <div class="loader" ng-show="opponentName === ''">Loading...</div>
         </div>
     </div>
 
 
-    <div class = "chatbox" ng-controller="chatController">
-        <p ng-repeat = "message in messages">
-            {{message.text}}
-            {{message.own}}
-        </p>
-    
+    <div ng-controller="chatController" id="about" class = "chatbox nano">
+        <div scroll-glue class = "nano-content messageArea">
+            <div  ng-repeat = "message in messages" ng-class = "{'ownMessage': message.own === 'mine', 'theirMessage': message.own === 'their'}">
+
+                <div class="alert alert-success" ng-class="{'alert-warning': message.own === 'mine', 'alert-info': message.own === 'their'}" role="alert">
+                    {{message.text}}
+                </div>
+            </div>
+
+        </div>
+
+
         <form class = "inputBox form-group" ng-submit="sendMessage(message)">
 
             <input type="text" id="messageField" class="form-control" ng-model="message">

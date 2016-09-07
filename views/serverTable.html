@@ -3,10 +3,10 @@
   <script src="views/animate/refresh.js"></script>
   <!-- Style sheet -->
   <link rel="stylesheet" href="style/server-select.css">
-
+  
 </header>
-<div ng-include="'views/createGame.html'"></div>
 
+<button type="button" class="btn btn-success createGameButton" ng-click="openCreateGameModal()">Create Game</button>
 <table class="server-table table-hover table-striped">
 
   <th>Room Name</th>
@@ -17,7 +17,7 @@
         <a id="update"><i class="glyphicon glyphicon-refresh" style="color:white"></i></a>
       </button></th>
 
-  <tr ng-repeat="game in hostedGames" >
+  <tr ng-repeat="game in hostedGames">
       <td>{{game.name}}</td>
       <td>{{game.hostName}}</td>
       <td>{{game.players}}/2</td>

@@ -1,4 +1,4 @@
-var app = angular.module('pokemonDraft', ['ui.bootstrap.modal', 'ui.bootstrap.tpls', 'ngRoute']);
+var app = angular.module('pokemonDraft', ['ui.bootstrap.modal', 'ui.bootstrap.tpls', 'ngRoute', 'luegg.directives']);
 var socket = io.connect();
 // configure our routes
 app.config(function($routeProvider) {

@@ -1,0 +1,16 @@
+<div ng-controller ="serverTableController">
+  <div class="modal-body">
+    <div class="form-group">
+      <!-- Set name -->
+      <label class="lobbyModal" for="user">Password:</label>
+      <input type="text" class="form-control" id="password" ng-model = "password">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="close()" data-dismiss="modal">Close</button>
+
+    <!-- One button can link to new page whilst other cannot (alternating showing) -->
+    <a type="button" class="btn btn-success" ng-disabled="true" ng-show ="!(!!password)">Join Game</a>
+    <a type="button" class="btn btn-success" ng-hide = "!(!!password)" data-dismiss="modal" ng-click ="joinPrivateGame()">Join Game</a>
+  </div>
+</div>

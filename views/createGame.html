@@ -1,12 +1,10 @@
-<button type="button" class="btn btn-success createGameButton" data-toggle="modal" data-target="#createGame">Create Game</button>
+<div ng-controller="serverTableController">
 
-<div id="createGame" class="modal fade" role="dialog" ng-controller="serverTableController">
-  <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" ng-click="close()" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Create Game</h4>
       </div>
       <div class="modal-body">
@@ -21,15 +19,17 @@
 
           <!-- Set password -->
           <label class="lobbyModal" for="user">Set Password (optional):</label>
-          <input type="text" class="form-control" id="passwor d" ng-model = "password">
+          <input type="text" class="form-control" id="password" ng-model = "password">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- needs to direct to another page :) -->
-        <button type="button" class="btn btn-success" ng-disabled = "!(!!gameName && !!name)" data-dismiss="modal" ng-click ="createGame(usersID, gameName, name, password)">Create Game</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+        
+        <!-- One button can link other cannot -->
+
+        <a type="button" class="btn btn-success" ng-disabled = "true" ng-show = "!(!!gameName && !!name)">Create Game</a>
+        <a type="button" class="btn btn-success" ng-hide = "!(!!gameName && !!name)"  ng-click ="createGame(gameName, name, password)" href="#/room" >Create Game</a>
       </div>
     </div>
 
-  </div>
 </div>
