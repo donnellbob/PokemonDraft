@@ -1,8 +1,20 @@
 <header>
+<!-- Title font -->
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 <!-- StyleSheet -->
   <link rel="stylesheet" href="style/lobby-room.css">
   <script> $(".nano").nanoScroller(); </script>
 </header>
+<body>
+
+    <button type="button" class="backButton btn btn-default" ng-click="returnLobby()">
+      <span class="glyphicon glyphicon-circle-arrow-left backIcon"></span>
+      Lobby
+    </button>
+
+<div class="headerContent">
+    <h1>Pokemon Draft </h1>
+</div>
 
 <div class = "roomContainer" ng-controller="lobbyRoomController">
 
@@ -38,3 +50,4 @@
         </form>
     </div>
 </div>
+</body>

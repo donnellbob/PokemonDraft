@@ -3,10 +3,10 @@ module.exports = function(app, io, _, passwordhasher){
 	//Testing values
 	var hostedGames = [
 	{name: "Greg", hostName: "George", players: 2, private: "No", id: '1', opponentName : ""}, 
-	{name: "Cool Game", hostName: "Jim", players: 1, private: "Yes", id: '2', opponentName : "", password : passwordhasher.createHash('ssha512', 'alice', new Buffer('83d88386463f0625', 'hex'))},
+	{name: "Cool Game", hostName: "Jim", players: 1, private: "Yes", id: '2', opponentName : "", password : passwordhasher.createHash('ssha512', 'teemo', new Buffer('83d88386463f0625', 'hex'))},
 	{name: "Fun Game", hostName: "Tim", players: 1, private: "No", id: '3', opponentName : ""},
-	{name: "Crazy Game", hostName: "Old'greg", players: 2, private: "Yes", id: '4', opponentName : "", password : passwordhasher.createHash('ssha512', 'alice', new Buffer('83d88386463f0625', 'hex'))},
-	{name: "Interesting Game", hostName: "Jay", players: 1, private: "Yes", id: '5', opponentName : "", password : passwordhasher.createHash('ssha512', 'alice', new Buffer('83d88386463f0625', 'hex'))}
+	{name: "Crazy Game", hostName: "Old'greg", players: 2, private: "Yes", id: '4', opponentName : "", password : passwordhasher.createHash('ssha512', 'teemo', new Buffer('83d88386463f0625', 'hex'))},
+	{name: "Interesting Game", hostName: "Jay", players: 1, private: "Yes", id: '5', opponentName : "", password : passwordhasher.createHash('ssha512', 'teemo', new Buffer('83d88386463f0625', 'hex'))}
 	];
 
 	// Returns server list
@@ -45,6 +45,7 @@ module.exports = function(app, io, _, passwordhasher){
 					var encryptEnteredPassword = passwordhasher.createHash('ssha512', req.body.password, new Buffer('83d88386463f0625', 'hex'));
 					
 					if(encryptEnteredPassword.hash.equals(room.password)){
+						room.players += 1;
 						res.send({hostName : room.hostName, roomHasSpace : true, roomIsPrivate : room.private});
 					}else{
 						res.send({hostName : room.hostName, roomHasSpace : false, roomIsPrivate : room.private, passwordCheck: false});
@@ -55,6 +56,17 @@ module.exports = function(app, io, _, passwordhasher){
 		}
 
 
+	});
+
+	app.post("/routes/leaveRoom", function(req,res){
+		var player = req.body.player;
+		var userID = req.body.userID;
+		var selectedRoom = _.findWhere(hostedGames, {id : req.body.hostID});
+		if(player === 'host'){
+			hostedGames = _.reject(hostedGames, function(room){return room === selectedRoom});
+		}else{
+			selectedRoom.players = 1;
+		}
 	});
 
 }
