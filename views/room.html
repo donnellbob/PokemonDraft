@@ -16,6 +16,14 @@
     <h1>Pokemon Draft </h1>
 </div>
 
+    <div class="buttonSection" ng-hide="hostID != userID">
+        <button type="button" class="playButton btn btn-warning" ng-click="startGame()" 
+        ng-disabled="opponentName === ''">
+        Start Game
+        </button>
+    </div>
+
+
 <div class = "roomContainer" ng-controller="lobbyRoomController">
 
     <div class = "room">

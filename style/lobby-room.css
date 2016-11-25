@@ -1,5 +1,6 @@
 body{
   background-color: #08307E;
+  font-family: 'Montserrat', sans-serif;
 }
 .headerContent{
   text-align: center;
@@ -12,6 +13,16 @@ h1{
   text-align: center;
   color: #51A351;
   font-size: 65px;
+}
+
+.buttonSection{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.playButton{
+  font-size: 22px;
 }
 
 .roomContainer{ 

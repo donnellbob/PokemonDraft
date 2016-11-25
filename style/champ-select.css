@@ -1,0 +1,137 @@
+body { 
+	background-color: #08307E;
+  	font-family: 'Montserrat', sans-serif;
+  	color: white;
+  	font-size: 24px;
+  	
+
+}
+/*Resets the outer containers values*/
+.container{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 0;
+	border-collapse: collapse;
+}
+
+.leftChampSelect {
+	text-align: center;
+	font-size: 1.5vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 15%;
+	height: 100%;
+}
+
+.rightChampSelect {
+	text-align: center;
+	font-size: 1.5vw;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 15%;
+	height: 100%;
+}
+
+.topChampSelect {
+	width: 70%;
+	font-size: 2vw;
+	height: 16.66%;
+	positon: fixed;
+	margin: 0px auto;
+	top: 0;
+	text-align: center;
+}
+
+.bottomChampSelect{
+	width:70%;
+	margin-left: 15%;
+	position: fixed;
+	bottom: 0;
+	height: 33.33%;
+	text-align: center;
+	font-size: 1.5vw;
+
+}
+.abilityCells{
+	width: 100%;
+	height: 100%;
+}
+.abilityCells td{
+	border: 1px solid white;
+}
+
+.lockIn{
+	
+}
+.lockInButton{
+	font-size: 2.5vw;
+	border-radius:20px 20px 20px 20px;
+}
+
+.championDisplay{
+	text-align: left;
+	width: 38%;
+}
+
+.championDisplay img{
+	max-width: 50%;
+	/*max-height: 33.33%;*/
+	height: auto;
+	width: auto;
+	display: inline-block;
+	float: left;
+	margin: 0 auto;
+}
+
+.championDisplay h2{
+	display: inline-block;
+	font-size: 2vw;
+	color: #F89406;
+}
+.championDetails{
+	display: inline-block;
+}
+.championDisplay li{
+	font-size: 1.5vw;
+	display: inline-block;
+	list-style: none;
+	margin-left: 25px;
+}
+
+.championStat{
+	color: #51A351;
+}
+
+
+.championAbilities{
+
+}
+/*These used to dynamically highlight who's turn it is*/
+.leftPlayer{
+	background-color: #F89406;
+
+}
+.rightPlayer{
+
+}
+.countDown{
+	font-family: 'Indie Flower', cursive;
+	color: #51A351;
+	font-size: 5vw;
+}
+
+.yourChamps{
+	color: #51A351;
+}
+.theirChamps{
+	color: #BD362F;
+}
+
+
+td {
+	border: 3px solid white;
+}

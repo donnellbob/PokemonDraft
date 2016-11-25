@@ -4,13 +4,19 @@ var socket = io.connect();
 app.config(function($routeProvider) {
     $routeProvider
 
-        // route for the home page
+        // route for the lobby table page
         .when('/', {
             templateUrl : 'views/serverTable.html',
             controller  : 'serverTableController'
         })
 
-        // route for the about page
+        //champSelect
+        .when('/champSelect', {
+            templateUrl : 'views/champSelect.html',
+            controller  : 'champSelectController'
+        })
+
+        // route for the room page
         .when('/room', {
             templateUrl : 'views/room.html',
             controller  : 'lobbyRoomController'
