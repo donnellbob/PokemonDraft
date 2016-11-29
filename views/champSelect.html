@@ -2,37 +2,52 @@
 	<!-- Title font -->
 	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 	<!-- StyleSheet -->
- 	<link rel="stylesheet" href="style/champ-select.css">
+ 	<link rel="stylesheet" href="style/champ-select.css"> 
 </header>
 
 <body>
 
 <table class="leftChampSelect">
 
-	<tr><td class="yourChamps">Your Champions</td></tr>
-	<tr><td>Second</td></tr>
-	<tr><td>Third</td></tr>
-	<tr><td>Fourth</td></tr>
-	<tr><td>Fifth</td></tr>
-	<tr><td>Sixth</td></tr>
+	<tr height="5%"><td class="yourChamps">Your Champions</td></tr>
+	<tr height="19%"><td><img src="{{yourChampions[0].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{yourChampions[1].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{yourChampions[2].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{yourChampions[3].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{yourChampions[4].asset}}"></td></tr>
 
 </table>
 
 <table class="topChampSelect">
 	<tr>
-		<td class="leftPlayer">Player 1 Name</td>
-		<td class="countDown">40</td>
-		<td class="rightPlayer">Player 2 Name</td>
+		<td class="leftPlayer" id="leftPlayer">{{yourName}}</td>
+		<td class="countDown">{{timer}}</td>
+		<td class="rightPlayer" id="rightPlayer">{{theirName}}</td>
 	</tr>
 </table>
 
+
+<div class="championContainer">
+	<table class="championList">
+			<tr ng-repeat="champion in listOfChampions">
+				<td ng-repeat="champ in champion" class="champions">
+					<button class="championButton" ng-click="selectChampion(champ.id)" id="{{champ.id}}">
+						<img class="champions" src="{{champ.asset}}">
+					</button>
+				</td>
+			</tr>
+	</table>
+	
+
+
+</div>
 <table class="bottomChampSelect">
 	<tr>
 		<td class="championDisplay">
 		<div class="championDetails">
-			<img src="res/teemo.png">
+			<img src="{{selectedChampion.asset}}">
 			
-			<h2>Teemo</h2>
+			<h2>{{selectedChampion.name}}</h2>
 			
 			<ul>
 				<li> <span class="championStat"> Attack : </span> 6 </li>
@@ -43,7 +58,7 @@
 		</td>
 
 		<td class="lockIn">
-			<button class="btn btn-success lockInButton">
+			<button class="btn btn-success lockInButton" ng-disabled="isTurn === false" ng-click="lockInChampion()">
 				Lock In
 			</button>
 		</td>
@@ -51,12 +66,12 @@
 		<td class="championAbilities">
 			<table class="abilityCells">
 				<tr>
-					<td> Firsts ability</td>
-					<td> Second ability</td>
+					<td> <h3> Attack</h3> Deals physical damage to single target</td>
+					<td> <h3> Blinding Dart</h3> Deals magic damage to single target </td>
 				</tr>
 				<tr>
-					<td> Third ability</td>
-					<td> Fourth ability</td>
+					<td> <h3> Move Quick</h3> Speed increased by 50</td>
+					<td> <h3> Shroom</h3> Deals magic aoe damage to multiple targets</td>
 				</tr>
 			</table>
 		</td>
@@ -65,12 +80,12 @@
 
 <table class="rightChampSelect">
 
-	<tr><td class="theirChamps">Their Champions</td></tr>
-	<tr><td>Second</td></tr>
-	<tr><td>Third</td></tr>
-	<tr><td>Fourth</td></tr>
-	<tr><td>Fifth</td></tr>
-	<tr><td>Sixth</td></tr>
+	<tr height="5%"><td class="theirChamps">Their Champions</td></tr>
+	<tr height="19%"><td><img src="{{theirChampions[0].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{theirChampions[1].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{theirChampions[2].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{theirChampions[3].asset}}"></td></tr>
+	<tr height="19%"><td><img src="{{theirChampions[4].asset}}"></td></tr>
 
 </table>
 </body>

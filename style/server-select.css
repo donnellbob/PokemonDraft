@@ -1,5 +1,5 @@
 body{
-	background-color: #08307E;
+	background-color: #00578D;
 }
 .container{
 /*	margin-left: 25%;
@@ -36,7 +36,7 @@ h1{
 }
 .server-table th{
 	font-size: 24px;
-	background-color: #F89406;
+	background-color: #FF8800;
 	color: white;
 }
 table th:first-child{
@@ -45,6 +45,10 @@ table th:first-child{
 
 table th:last-child{
   border-radius:0 40px 0px 0;
+}
+
+table tr:last-child{
+	border-right: black;
 }
 
 
@@ -76,7 +80,11 @@ table th:last-child{
 }
 
 .table-striped>tbody>tr:nth-child(odd)>td{
-   background-color: #668AD1; 
+   background-color: #044D7A; 
+ }
+
+ .table-striped>tbody>tr:nth-child(even)>td{
+   background-color: #0088CD; 
  }
 
 

@@ -25,6 +25,21 @@ module.exports = function(app, io){
 	    	//Need to work on this again eventually it feels important
 	    });
 
+
+
+
+
+
+	    // Champion Select
+
+	   	client.on('changeTurn', function(data){
+	    	io.sockets.in(data.host).emit('turnChange', data);
+	    });
+
+	   	client.on('beginGame', function(data){
+	    	io.sockets.in(data).emit('beginGame', data);
+	    });
+
 	});
 
 

@@ -18,7 +18,7 @@ app.controller('lobbyRoomController', function($scope, $http, lobbyService) {
 	}
 
 	$scope.returnLobby = function(){
-		var userID = socket.io.engine.id
+		var userID = socket.io.engine.id;
 		var hostID = lobbyService.sessionID;
 
 		if(userID === hostID){

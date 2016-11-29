@@ -1,5 +1,5 @@
 body { 
-	background-color: #08307E;
+	background-color: #00587D;
   	font-family: 'Montserrat', sans-serif;
   	color: white;
   	font-size: 24px;
@@ -15,6 +15,40 @@ body {
 	font-size: 0;
 	border-collapse: collapse;
 }
+.championContainer{
+	margin-left: 15%;
+	width: 70%;
+	height: 49.8%;
+	max-height: 49:8%;
+	font-size: 1vw;
+	table-layout: fixed;
+}
+
+.championList{
+	width: 100%;
+	height: 100%;
+	table-layout: fixed;
+
+}
+
+.champions {
+	max-width: 100%;
+	/*max-height: 33.33%;*/
+	height: auto;
+	width: auto;
+	margin: 0 auto;
+}
+
+.championButton {
+	background: none;
+	border: none;
+	width: 100%;
+	height: 100%;
+}
+
+.championButton:hover {
+	background: #FF8800;
+}
 
 .leftChampSelect {
 	text-align: center;
@@ -24,6 +58,51 @@ body {
 	left: 0;
 	width: 15%;
 	height: 100%;
+	table-layout: fixed;
+}
+
+/*Checkered design*/
+.leftChampSelect tr:nth-child(even){
+	background-color: #00587D;
+}
+
+.leftChampSelect tr:nth-child(odd){
+	background-color: #044D7A;
+}
+
+.rightChampSelect tr:nth-child(even){
+	background-color: #00587D;
+}
+
+.rightChampSelect tr:nth-child(odd){
+	background-color: #044D7A;
+}
+
+.championList tr:nth-child(even) td:nth-child(odd), 
+.championList tr:nth-child(odd) td:nth-child(even)
+{
+    background-color: #044D7A;
+}
+
+
+
+
+
+
+
+
+.leftChampSelect img{
+	max-width: 50%;
+	height: auto;
+	width: auto;
+	margin: 0 auto;
+}
+
+.rightChampSelect img {
+	max-width: 50%;
+	height: auto;
+	width: auto;
+	margin: 0 auto;
 }
 
 .rightChampSelect {
@@ -44,27 +123,37 @@ body {
 	margin: 0px auto;
 	top: 0;
 	text-align: center;
+	table-layout: fixed;
 }
 
 .bottomChampSelect{
+	table-layout: fixed;
 	width:70%;
+	height: 33.33%;	
 	margin-left: 15%;
 	position: fixed;
 	bottom: 0;
-	height: 33.33%;
 	text-align: center;
 	font-size: 1.5vw;
+	max-height: 33.33%;
+	border-top: 2px solid white;
+	background-color: #044D7A;
 
 }
 .abilityCells{
 	width: 100%;
 	height: 100%;
+	table-layout: fixed;
+	text-align: center;
+	font-size: 1vw;
 }
-.abilityCells td{
-	border: 1px solid white;
+
+.abilityCells td {
+	border: none;
 }
 
 .lockIn{
+	border: none;
 	
 }
 .lockInButton{
@@ -74,7 +163,8 @@ body {
 
 .championDisplay{
 	text-align: left;
-	width: 38%;
+	width: 40%;
+	border: none;
 }
 
 .championDisplay img{
@@ -90,7 +180,7 @@ body {
 .championDisplay h2{
 	display: inline-block;
 	font-size: 2vw;
-	color: #F89406;
+	color: #FF8800;
 }
 .championDetails{
 	display: inline-block;
@@ -106,22 +196,32 @@ body {
 	color: #51A351;
 }
 
+.championAbilities {
+	width: 40%;
+	border: none;
+}
 
-.championAbilities{
 
+.championAbilities h3{
+	color: #FF8800;
+	padding: 0;
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 1.5vw;
 }
 /*These used to dynamically highlight who's turn it is*/
 .leftPlayer{
-	background-color: #F89406;
-
+	background-color: : none;
 }
 .rightPlayer{
-
+	background-color: none;
 }
 .countDown{
 	font-family: 'Indie Flower', cursive;
 	color: #51A351;
 	font-size: 5vw;
+	width: 20%;
 }
 
 .yourChamps{
