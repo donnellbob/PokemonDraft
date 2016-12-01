@@ -40,24 +40,35 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 
 	function selectRandomChampion(){
 		var randomChampion = _.random(championService.champions.length - 1);
-		$scope.selectedChampion = championService.champions[randomChampion];
+		if(_.findWhere($scope.yourChampions, {id: randomChampion.id}) === undefined 
+			&& _.findWhere($scope.theirChampions, {id: randomChampion.id}) === undefined){
+			$scope.selectedChampion = championService.champions[randomChampion];
+		}else{
+			selectRandomChampion();
+		}
 	}
 
 
-	$scope.selectChampion = function(id){
+	$scope.selectChampion = function(id){	
 		document.getElementById($scope.selectedChampion.id).style.background = "none";
 		document.getElementById(id).style.background = "#F89406";
 		$scope.selectedChampion = championService.champions[id-1];
+
 	}
 
 	$scope.lockInChampion = function(){
-		var lockedChampion = jQuery.extend({}, $scope.selectedChampion)
-		$scope.yourChampions.push(lockedChampion);
+		// Checks champion isn't already picked
+		if(_.findWhere($scope.yourChampions, {id: $scope.selectedChampion.id}) === undefined 
+			&& _.findWhere($scope.theirChampions, {id: $scope.selectedChampion.id}) === undefined){
 
-		document.getElementById("leftPlayer").style.background = "none";
-		document.getElementById("rightPlayer").style.background = "#FF8800";
+			var lockedChampion = jQuery.extend({}, $scope.selectedChampion)
+			$scope.yourChampions.push(lockedChampion);
 
-		changeTurns(lockedChampion);
+			document.getElementById("leftPlayer").style.background = "none";
+			document.getElementById("rightPlayer").style.background = "#FF8800";
+
+			changeTurns(lockedChampion);		
+		}
 	}
 
 	function beginGame(){
@@ -70,19 +81,18 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 		}else{
 			var details = {host : lobbyService.sessionID, turn: "host", champion : lockedChampion}
 		}
-		if($scope.yourChampions.length === 5 && $scope.theirChampions.length === 5){
-			$scope.isTurn = false;
-			beginGame();
-		}else{
-			socket.emit('changeTurn', details);
-			$scope.isTurn = false;
-		}
+
+		socket.emit('changeTurn', details);
+		$scope.isTurn = false;
+	
 	}
+
+
 
 	$interval(function(){
 		$scope.timer--;
 		if($scope.timer === 0 && $scope.gameStart === true){
-			console.log("Game has started add redirect code here!")
+			window.location.replace(location.protocol + '//' + location.host + '/#/game');
 		}else if($scope.timer === 0 && $scope.gameStart === false && $scope.isTurn === true){
 			selectRandomChampion();
 			$scope.lockInChampion();
@@ -108,6 +118,14 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 			document.getElementById("rightPlayer").style.background = "none";
 		}
 
+		if($scope.yourChampions.length === 5 && $scope.theirChampions.length === 5){
+			$scope.isTurn = false;
+			beginGame();
+		}
+
+		document.getElementById(data.champion.id).style.background = "black";
+		document.getElementById(data.champion.id).style.opacity = 0.2;
+		document.getElementById(data.champion.id).disabled = true;
 		$scope.timer = 40;
 	});
 

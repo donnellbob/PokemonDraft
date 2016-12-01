@@ -20,5 +20,11 @@ app.config(function($routeProvider) {
         .when('/room', {
             templateUrl : 'views/room.html',
             controller  : 'lobbyRoomController'
+        })
+
+        //Game route 
+        .when('/game', {
+            templateUrl : 'views/game.html',
+            controller  : 'gameController'
         });
 });

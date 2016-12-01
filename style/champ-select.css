@@ -22,6 +22,8 @@ body {
 	max-height: 49:8%;
 	font-size: 1vw;
 	table-layout: fixed;
+	/*overflow-y: scroll;*/
+
 }
 
 .championList{
