@@ -40,6 +40,15 @@ module.exports = function(app, io){
 	    	io.sockets.in(data).emit('beginGame', data);
 	    });
 
+
+
+
+	   	// Game
+	   	client.on('changeGameTurn', function(data){
+	    	io.sockets.in(data.host).emit('turnChange', data);
+	    });
+
+
 	});
 
 

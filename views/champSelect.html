@@ -50,9 +50,9 @@
 			<h2>{{selectedChampion.name}}</h2>
 			
 			<ul>
-				<li> <span class="championStat"> Attack : </span> 6 </li>
-				<li> <span class="championStat"> Health : </span> 10 </li>
-				<li> <span class="championStat"> Defense : </span> 8 </li>
+				<li> <span class="championStat"> Health : </span> {{selectedChampion.health}} </li>
+				<li> <span class="championStat"> Resource : </span> {{selectedChampion.cost}} </li>
+				<li> <span class="championStat"> Speed : </span> {{selectedChampion.speed}} </li>
 			</ul>
 			</div>
 		</td>
@@ -66,12 +66,16 @@
 		<td class="championAbilities">
 			<table class="abilityCells">
 				<tr>
-					<td> <h3> Attack</h3> Deals physical damage to single target</td>
-					<td> <h3> Blinding Dart</h3> Deals magic damage to single target </td>
+					<td> <h3> {{selectedChampion.abilities[0].name}}</h3> 
+						{{selectedChampion.abilities[0].description}} </td>
+					<td> <h3> {{selectedChampion.abilities[1].name}}</h3> 
+						{{selectedChampion.abilities[1].description}} </td>
 				</tr>
 				<tr>
-					<td> <h3> Move Quick</h3> Speed increased by 50</td>
-					<td> <h3> Shroom</h3> Deals magic aoe damage to multiple targets</td>
+					<td> <h3> {{selectedChampion.abilities[2].name}}</h3> 
+						{{selectedChampion.abilities[2].description}} </td>
+					<td> <h3> {{selectedChampion.abilities[3].name}}</h3> 
+						{{selectedChampion.abilities[3].description}} </td>
 				</tr>
 			</table>
 		</td>

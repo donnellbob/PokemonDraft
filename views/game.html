@@ -9,48 +9,110 @@
 
 
 	<table class="leftChampions">
-		<tr><td class="yourName">YOUR NAME </td></tr>
-		<tr><td>First Champion</td></tr>
-		<tr><td>Second Champion</td></tr>
-		<tr><td>Third Champion</td></tr>
-		<tr><td>Fourth Champion</td></tr>
-		<tr><td>Fifth Champion</td></tr>
+		<tr><td class="yourName" id="yourName">{{yourName}}</td></tr>
+		<tr><td>{{yourTeam[0].name}}</td>
+			<td class="swapChampion">
+				<button class="btn btn-info" ng-click="swapChampion(0)" ng-hide="playerChampion === yourTeam[0]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+			</td>
+		</tr>
+		<tr><td>{{yourTeam[1].name}}</td> 
+			<td class="swapChampion">
+				<button class="btn btn-info" ng-click="swapChampion(1)" ng-hide="playerChampion === yourTeam[1]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+			</td>
+		</tr>
+		<tr><td>{{yourTeam[2].name}}</td>
+			<td class="swapChampion">
+				<button class="btn btn-info" ng-click="swapChampion(2)" ng-hide="playerChampion === yourTeam[2]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+			</td>
+		</tr>
+		<tr><td>{{yourTeam[3].name}}</td>
+			<td class="swapChampion">
+				<button class="btn btn-info" ng-click="swapChampion(3)" ng-hide="playerChampion === yourTeam[3]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+			</td>
+		</tr>
+		<tr><td>{{yourTeam[4].name}}</td>
+			<td class="swapChampion">
+				<button class="btn btn-info" ng-click="swapChampion(4)" ng-hide="playerChampion === yourTeam[4]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+			</td>
+		</tr>
 	</table>
 
 
 	<table class="countDown">
 		<tr><td>{{timer}}</td></tr>
+		<tr><td class="pass"><button class="btn btn-success passButton" ng-click="changeTurns()">Pass</button></td></tr>
 	</table>
 
-	<table class="rightChampions">
-		<tr><td class="theirName">THEIR NAME </td></tr>
-		<tr><td>First Champion</td></tr>
-		<tr><td>Second Champion</td></tr>
-		<tr><td>Third Champion</td></tr>
-		<tr><td>Fourth Champion</td></tr>
-		<tr><td>Fifth Champion</td></tr>
-	</table>
+	<div class="rightside">
+		<table class="rightChampions">
+			<tr><td class="theirName" id="theirName">{{theirName}}</td></tr>
+			<tr><td>{{theirTeam[0].name}}</td></tr>
+			<tr><td>{{theirTeam[1].name}}</td></tr>
+			<tr><td>{{theirTeam[2].name}}</td></tr>
+			<tr><td>{{theirTeam[3].name}}</td></tr>
+			<tr><td>{{theirTeam[4].name}}</td></tr>
+		</table>
 
+		<div class="combatLog">
+			<h3> Combat Log </h3>
+			<div class="log">
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			Jim used attack dealing 52 damage! <br>
+			</div>
+		</div>
+
+
+		<table class="championAbilities">
+			<tr>
+				<td><button class="btn btn-default" ng-click="useAbility(0)"> 
+					<h3 class="abilityTitle"> {{playerChampion.abilities[0].name}} -</h3>
+					<p> {{playerChampion.abilities[0].description}} </p>
+				</button></td>
+				<td><button class="btn btn-default" ng-click="useAbility(1)"> 
+					<h3 class="abilityTitle"> {{playerChampion.abilities[1].name}} -</h3>
+					<p> {{playerChampion.abilities[1].description}} </p>
+				</button></td>
+			</tr>
+			<tr>
+				<td><button class="btn btn-default" ng-click="useAbility(2)"> 
+					<h3 class="abilityTitle"> {{playerChampion.abilities[2].name}} -</h3>
+					<p> {{playerChampion.abilities[2].description}} </p>
+				</button></td>
+				<td><button class="btn btn-default" ng-click="useAbility(3)"> 
+					<h3 class="abilityTitle"> {{playerChampion.abilities[3].name}} -</h3>
+					<p> {{playerChampion.abilities[3].description}}</p>
+				</button></td>
+			</tr>
+
+		</table>
+	</div>
+
+
+	<div class="opponentChampion">
+		<img src="{{opponentChampion.asset}}">
+		<div class="progress">
+		  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (opponentChampion.health / opponentChampion.maxHealth) * 100 + '%'}">
+		  </div>
+		</div>
+	</div>
 
 
 	<div class="playerChampion">
-		<img src="res/teemo.png">
+		<img src="{{playerChampion.asset}}">
+
+		<div class="progress">
+		  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (playerChampion.health / playerChampion.maxHealth) * 100 + '%'}">
+		  </div>
+		</div>
 	</div>
 
-	<div class="opponentChampion">
-		<img src="res/teemo.png">
-	</div>
 
 
-
-	<table class="championAbilities">
-		<tr>
-			<td> <h3 class="abilityTitle"> Attack -</h3> Deals physical damage to single target</td>
-			<td> <h3 class="abilityTitle"> Blinding Dart -</h3> Deals magics damage to single target</td>
-		<tr>
-			<td> <h3 class="abilityTitle"> Move Quick -</h3> Speed increase by 50</td>
-			<td> <h3 class="abilityTitle"> Shroom -</h3> Deals magic aoe damage to multiple targets</td>
-		<tr>
-
-	</table>
 </body>

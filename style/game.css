@@ -24,18 +24,57 @@ td{
 	position: fixed;
 	left: 0;
 	top: 0;
-	width: 22%;
+	width: 26%;
 	font-size: 2vw;
+	height: 33.33%;
+	/*border: 4px solid white;*/
+}
+
+.btn-default {
+	color: white;
+	background: none;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	text-shadow: none;
+}
+
+.btn-default:hover {
+	background-color: #FF8800;
+}
+
+.btn-default:hover h3{
+	color: #51A351;
+}
+
+.leftChampions tr:nth-child(even){
+	background-color: #044D7A;
+}
+
+.leftChampions td{
+	/*border: 4px solid white;*/
+	overflow: hidden;
+}
+
+.swapChampion {
+	border: none;
+	background-color: #00587D;
+ 	padding: 5px;
+}
+
+
+.rightChampions {
+	width: 100%;
+	font-size: 2vw;
+	height: 33.33%;
 	border: 4px solid white;
 }
 
-.rightChampions {
-	position: fixed;
-	right: 0;
-	top: 0;
-	width: 22%;
-	font-size: 2vw;
-	border: 4px solid white;
+.rightChampions tr:nth-child(even){
+	background-color: #044D7A;
 }
 
 .countDown {
@@ -49,16 +88,65 @@ td{
 	text-align: center;
 	left-margin:15%;
 	border: 6px solid #FF8800;
+	background-color: #044D7A;
+}
+
+.passButton { 
+	width: 100%;
+	height: 100%;	
+	padding: 0;
+	margin: 0;
+	font-size: 1.5vw;
+
 }
 
 .playerChampion {
-	margin-top: 20%;
-	margin-left: 20%;
+	position: fixed;
+	left: 8%;
+	bottom: 6%;
+	/*width: 33% ;*/
+	/*border: 4px solid white;*/
+	text-align: center;
 	display: inline-block;
+	background-color: #0088CD;
+	border-radius: 50% 50% 50% 50%;
+	padding: 10px;
+	max-width: 25%;
+	height: auto;
+	width: auto;
+	margin: 0 auto;
 }
 
+.playerChampion img {
+	max-width: 80%;
+	height: auto;
+	width: auto;
+	margin: 0 auto;
+}
+
+
 .opponentChampion {
+	padding: 10px;
+	position: fixed;
+	top: 20%;
+	right: 25%;
 	display: inline-block;
+	margin-left: 40%;
+	text-align: center;
+	background-color: #044D7A;
+	border-radius: 50% 50% 50% 50%;
+	max-width: 25%;
+	height: auto;
+	width: auto;
+	margin: 0 auto;
+}
+
+.opponentChampion img {
+	max-width: 80%;
+	height: auto;
+	width: auto;
+	margin: 0 auto;
+	margin-bottom: -10px;
 }
 
 .yourName {
@@ -73,18 +161,71 @@ td{
 	color: #BD362F;
 	text-align: center;
 	font-size: 2.5vw;
+	background-color: none;
 }
 
 .championAbilities {
-	position: fixed;
-	bottom: 0;
-	right: 0;
 	width: 50%;
-	height: 33%;
+	height: 33.33%;
 	font-size: 1.5vw;
+	/*padding: 10px;*/
+	/*margin-left: -150%;*/
+	position: fixed;
+	right: 0;
+	table-layout: fixed;
 }
+
 .championAbilities h3{
+	font-size: 2vw;
+	color: #FF8800;
+	margin-left: 10px;
+	margin-top: 0;
+}
+.championAbilities p{
+	margin-left: 20px;
+	font-size: 1vw;
+	white-space: initial;	
+}
+
+.championAbilities tr:nth-child(even) td:nth-child(even), 
+.championAbilities tr:nth-child(odd) td:nth-child(odd)
+{
+    background-color: #044D7A;
+}
+
+.combatLog {
+	background-color: #044D7A;
+	color: white;
+	height: 33.33%;
+	width: 100%;
+	font-size: 2vw;
+	padding: 10px;
+	/*overflow: scroll;*/
+	border-left: 4px solid white;
+}
+
+.rightSide {
+	position: fixed;
+	right: 0;
+	width: 22%;
+	height: 100%;
+}
+
+.log {
+	overflow: scroll;
+	height: 90%;
+
+}
+
+/*Hides scroll bar but needs a new style later*/
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.combatLog h3 {
 	font-size: 2.5vw;
 	color: #FF8800;
+	margin: 0;
+	text-align: center;
 }
 
