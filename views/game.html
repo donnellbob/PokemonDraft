@@ -9,30 +9,30 @@
 
 
 	<table class="leftChampions">
-		<tr><td class="yourName" id="yourName">{{yourName}}</td></tr>
+		<tr><td class="yourName" ng-style="isTurn && {'background-color':'#FF8800'} || {'background-color': 'none'}" id="yourName">{{yourName}}</td></tr>
 		<tr><td>{{yourTeam[0].name}}</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(0)" ng-hide="playerChampion === yourTeam[0]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(0)" ng-hide="playerChampion === yourTeam[0]" ng-disabled="yourTeam[0].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
 		<tr><td>{{yourTeam[1].name}}</td> 
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(1)" ng-hide="playerChampion === yourTeam[1]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(1)" ng-hide="playerChampion === yourTeam[1] || yourTeam[1].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
 		<tr><td>{{yourTeam[2].name}}</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(2)" ng-hide="playerChampion === yourTeam[2]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(2)" ng-hide="playerChampion === yourTeam[2] || yourTeam[2].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
 		<tr><td>{{yourTeam[3].name}}</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(3)" ng-hide="playerChampion === yourTeam[3]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(3)" ng-hide="playerChampion === yourTeam[3] || yourTeam[3].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
 		<tr><td>{{yourTeam[4].name}}</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(4)" ng-hide="playerChampion === yourTeam[4]"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(4)" ng-hide="playerChampion === yourTeam[4] || yourTeam[4].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
 	</table>
@@ -45,7 +45,7 @@
 
 	<div class="rightside">
 		<table class="rightChampions">
-			<tr><td class="theirName" id="theirName">{{theirName}}</td></tr>
+			<tr><td class="theirName"  ng-style="isTurn && {'background-color':'none'} || {'background-color': '#FF8800'}" id="theirName">{{theirName}}</td></tr>
 			<tr><td>{{theirTeam[0].name}}</td></tr>
 			<tr><td>{{theirTeam[1].name}}</td></tr>
 			<tr><td>{{theirTeam[2].name}}</td></tr>
@@ -71,21 +71,25 @@
 
 		<table class="championAbilities">
 			<tr>
-				<td><button class="btn btn-default" ng-click="useAbility(0)"> 
+				<!-- ng-disabled="isTurn === false" -->
+				<td><button class="btn btn-default" ng-click="changeTurns(0)"> 
 					<h3 class="abilityTitle"> {{playerChampion.abilities[0].name}} -</h3>
 					<p> {{playerChampion.abilities[0].description}} </p>
 				</button></td>
-				<td><button class="btn btn-default" ng-click="useAbility(1)"> 
+				<!-- ng-disabled="isTurn === false" -->
+				<td><button class="btn btn-default" ng-click="changeTurns(1)"> 
 					<h3 class="abilityTitle"> {{playerChampion.abilities[1].name}} -</h3>
 					<p> {{playerChampion.abilities[1].description}} </p>
 				</button></td>
 			</tr>
 			<tr>
-				<td><button class="btn btn-default" ng-click="useAbility(2)"> 
+				<!-- ng-disabled="isTurn === false" -->
+				<td><button class="btn btn-default" ng-click="changeTurns(2)"> 
 					<h3 class="abilityTitle"> {{playerChampion.abilities[2].name}} -</h3>
 					<p> {{playerChampion.abilities[2].description}} </p>
 				</button></td>
-				<td><button class="btn btn-default" ng-click="useAbility(3)"> 
+				<!-- ng-disabled="isTurn === false" -->
+				<td><button class="btn btn-default" ng-click="changeTurns(3)"> 
 					<h3 class="abilityTitle"> {{playerChampion.abilities[3].name}} -</h3>
 					<p> {{playerChampion.abilities[3].description}}</p>
 				</button></td>
@@ -99,7 +103,16 @@
 		<img src="{{opponentChampion.asset}}">
 		<div class="progress">
 		  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (opponentChampion.health / opponentChampion.maxHealth) * 100 + '%'}">
+		  {{opponentChampion.health}} / {{opponentChampion.maxHealth}}
 		  </div>
+		</div>
+		<div class="progress">
+			  <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" 
+			  ng-style="opponentChampion.costType === 'mana' && {'background':'#1346bd', 'width': (opponentChampion.cost / opponentChampion.costSize) * 100 + '%'} ||
+			  opponentChampion.costType === 'composite' && {'background': '#ffc06e', 'width': (opponentChampion.cost / opponentChampion.costSize) * 100 + '%'}||
+			  opponentChampion.costType === 'energy' && {'background':'#e6e203', 'width': (opponentChampion.cost / opponentChampion.costSize) * 100 + '%'}">
+			  {{opponentChampion.cost}} / {{opponentChampion.costSize}}
+			  </div>
 		</div>
 	</div>
 
@@ -108,9 +121,19 @@
 		<img src="{{playerChampion.asset}}">
 
 		<div class="progress">
-		  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (playerChampion.health / playerChampion.maxHealth) * 100 + '%'}">
-		  </div>
+			  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (playerChampion.health / playerChampion.maxHealth) * 100 + '%'}">
+			  	{{playerChampion.health}} / {{playerChampion.maxHealth}}
+			  </div>
 		</div>
+		<div class="progress">
+			  <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuemin="0" aria-valuemax="100" 
+			  ng-style="playerChampion.costType === 'mana' && {'background':'#1346bd', 'width': (playerChampion.cost / playerChampion.costSize) * 100 + '%'} ||
+			  playerChampion.costType === 'composite' && {'background': '#ffc06e', 'width': (playerChampion.cost / playerChampion.costSize) * 100 + '%'}||
+			  playerChampion.costType === 'energy' && {'background':'#e6e203', 'width': (playerChampion.cost / playerChampion.costSize) * 100 + '%'}">
+			  {{playerChampion.cost}} / {{playerChampion.costSize}}
+			  </div>
+		</div>
+
 	</div>
 
 

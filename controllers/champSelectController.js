@@ -92,6 +92,8 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 	$interval(function(){
 		$scope.timer--;
 		if($scope.timer === 0 && $scope.gameStart === true){
+			lobbyService.yourTeam = $scope.yourChampions;
+			lobbyService.theirTeam = $scope.theirChampions;
 			window.location.replace(location.protocol + '//' + location.host + '/#/game');
 		}else if($scope.timer === 0 && $scope.gameStart === false && $scope.isTurn === true){
 			selectRandomChampion();

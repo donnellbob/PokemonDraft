@@ -124,6 +124,14 @@ td{
 	margin: 0 auto;
 }
 
+/*HP & Cost bar*/
+.progress {
+	margin: 0 auto;
+}
+
+.progress-bar-custom {
+	/*background: #FF8800;*/
+}
 
 .opponentChampion {
 	padding: 10px;
@@ -154,14 +162,14 @@ td{
 	text-align: center;
 	font-size: 2.5vw;
 	/*Change dynamically later*/
-	background-color: #FF8800;
+	
 }
 
 .theirName {
 	color: #BD362F;
 	text-align: center;
 	font-size: 2.5vw;
-	background-color: none;
+	
 }
 
 .championAbilities {
@@ -228,4 +236,44 @@ td{
 	margin: 0;
 	text-align: center;
 }
+
+
+
+/*PICK CHAMPION MODAL*/
+
+.pickChampion img { 
+	display:inline-block;
+	max-width: 100%;
+	height: auto;
+	width: auto;
+}
+.pickChampion td{
+	text-align: center;
+	border: none;
+}
+
+.pickChampion { 
+	/*background-color: blue;*/
+	text-align: center;
+	color: #51A351;
+	font-family: 'Indie Flower', cursive;
+}
+
+.pickChampion button {
+	background: none;
+	border: none;
+}
+
+.modal-content {
+	background-color: #00587D;
+	/*margin-left: -10%;*/
+	width: 100%;
+
+}
+
+.modal-dialog { 
+	width: 80%;
+ }
+
+
 

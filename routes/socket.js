@@ -45,9 +45,12 @@ module.exports = function(app, io){
 
 	   	// Game
 	   	client.on('changeGameTurn', function(data){
-	    	io.sockets.in(data.host).emit('turnChange', data);
+	    	io.sockets.in(data.host).emit('gameTurnChange', data);
 	    });
 
+	   	client.on('selectChampion', function(data){
+	    	io.sockets.in(data.host).emit('selectChampion', data);
+	    });
 
 	});
 

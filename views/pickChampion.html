@@ -1,0 +1,37 @@
+<header>
+  <!-- StyleSheet -->
+  <link rel="stylesheet" href="style/game.css"> 
+</header>
+
+<div class="pickChampion">
+    <!-- Modal content-->
+    <div id="pickChampion" class="modal-lg modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Pick Champion</h1>
+      </div>
+      <div class="modal-body">
+      <table>
+      <tr>
+        <td><button ng-click="close(); selectChampion(0)" ng-disabled="yourTeam[0].health <= 0"
+        ng-style="yourTeam[0].health <= 0 && {'opacity':'0.2'}">
+          <img src="{{yourTeam[0].asset}}"></button></td>
+        <td><button ng-click="close(); selectChampion(1)" ng-disabled="yourTeam[1].health <= 0"
+        ng-style="yourTeam[1].health <= 0 && {'opacity':'0.2'}">
+          <img src="{{yourTeam[1].asset}}"></button></td>
+        <td><button ng-click="close(); selectChampion(2)" ng-disabled="yourTeam[2].health <= 0"
+        ng-style="yourTeam[2].health <= 0 && {'opacity':'0.2'}">
+          <img src="{{yourTeam[2].asset}}"></button></td>
+        <td><button ng-click="close(); selectChampion(3)" ng-disabled="yourTeam[3].health <= 0"
+        ng-style="yourTeam[3].health <= 0 && {'opacity':'0.2'}">
+          <img src="{{yourTeam[3].asset}}"></button></td> 
+        <td><button ng-click="close(); selectChampion(4)" ng-disabled="yourTeam[4].health <= 0"
+        ng-style="yourTeam[4].health <= 0 && {'opacity':'0.2'}">
+          <img src="{{yourTeam[4].asset}}"></button></td> 
+      </tr> 
+
+      </table>
+      </div>
+
+    </div>
+
+</div>

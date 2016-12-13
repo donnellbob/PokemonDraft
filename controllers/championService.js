@@ -196,18 +196,18 @@ app.factory('championService', function(){
 					},
 					{
 						name : "Harden Core",
-						description : "Miriald hardens his core causing his next attack to deal 25% extra damage",
+						description : "Miriald hardens his core causing all attacks against him to be 25% weaker for the next 3 turns *Does not stack*",
 						type: "earth",
 						cost : 15,
 						damage : 25,
-						special : "attackBoost"
+						special : "defenseBoost"
 					}
 				]
 
 			},
 			{
 				name : "Pienna",
-				asset : "res/vigold.png",
+				asset : "res/pienna.png",
 				health : 110,
 				maxHealth: 110,
 				speed : 6,
@@ -298,7 +298,7 @@ app.factory('championService', function(){
 					},
 					{
 						name : "Consume Fire",
-						description : "Consume the fire from within and gain 25% attack bonus on next attack",
+						description : "Consume the fire from within and gain 25% attack bonus on all attacks",
 						type: "fire",
 						cost : 35,
 						damage : 25,
