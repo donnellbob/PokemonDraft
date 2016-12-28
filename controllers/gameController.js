@@ -1,9 +1,11 @@
-app.controller('gameController', function($scope, $http, lobbyService, $modal, $timeout, $interval, championService, _, championAbilities) {
+app.controller('gameController', function($scope, $http, lobbyService, $modal, $timeout, $interval, championService, _, championAbilities, gameAnimation) {
 	$scope.timer = 40;
 	$scope.isTurn = false;
 	$scope.isGameOver = false;
 	$scope.pickChampionShown = false;
-
+	$scope.gameOverShown = false;
+	$scope.firstChampionPicked = false;
+	$scope.newRound = true;
 	$scope.yourName = "";
 	$scope.theirName = "";
 	$scope.yourTeam = lobbyService.yourTeam;
@@ -12,12 +14,11 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 	$scope.opponentChampion = lobbyService.opponentChampion;
 
 
-
 	$scope.swapChampion = function(id){
 		$scope.playerChampion = $scope.yourTeam[id];
-		// Update service for abilit
 		lobbyService.playerChampion = $scope.playerChampion;
-		// MISSING ROUND END CODE ETC ETC!!!
+		$scope.selectChampion(id);
+	
 	}
 
 	$scope.useAbility = function(id){
@@ -44,8 +45,8 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 		// FIX HOST ADDRESS ITS HIGHLY IMPORTANT!!!!
 		details = {
 			abilityId : id,
-			host : socket.io.engine.id
-			// host : lobbyService.sessionID
+			// host : socket.io.engine.id
+			host : lobbyService.sessionID
 		}
 		socket.emit('changeGameTurn', details);
 	}
@@ -53,10 +54,13 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 
 	$interval(function(){
 		$scope.timer--;
-		if($scope.timer === 0 && $scope.isGameOver === true){
-			console.log("Game is over so handle it!");
+		if($scope.isGameOver === true){
+			if($scope.gameOverShown === false){
+				$scope.openGameOverModal();
+			}
+			$scope.gameOverShown = true;
 		}else if($scope.timer === 0 && $scope.isGameOver === false && $scope.isTurn === true){
-			$scope.changeTurns();
+			$scope.changeTurns(-1);
 		}
 
 	},1000,0);
@@ -81,18 +85,21 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 	});
 
 	$scope.selectChampion = function(id){
-		 $scope.modalInstance.dismiss();
+		if($scope.pickChampionShown === true){
+			$scope.modalInstance.dismiss();
+		}
 		// FIX HOST IT IS VERY IMPORTANT
 		details = {
 			playerChampionId : id,
-			host : socket.io.engine.id,
+			// host : socket.io.engine.id,
 			sender : socket.io.engine.id,
-			// host : lobbyService.sessionID
+			host : lobbyService.sessionID
 		}
 		$scope.pickChampionShown = false;
 		socket.emit('selectChampion', details);
 	}
 
+//// Modals ////
 	$scope.openPickChampionModal = function(item) {
 		$scope.pickChampionShown = true;
         $scope.modalInstance = $modal.open({
@@ -100,22 +107,75 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
             backdrop : 'static',
            	scope : $scope
         });
-
-
-
     }
 
-	// Socket listeners
+	$scope.openGameOverModal = function(item) {
+        $scope.modalInstance = $modal.open({
+            templateUrl : 'views/gameOver.html',
+            backdrop : 'static',
+           	scope : $scope
+        });
+    }
+
+//// Socket listeners ////
 	socket.on('gameTurnChange', function(data){
 		$scope.timer = 40;
 		//Means player just took turn
-		$scope.useAbility(data.abilityId);
+		if(data.abilityId != -1){
+			$scope.useAbility(data.abilityId);
+		} 
 
-		if($scope.isTurn === true){
-			$scope.isTurn = false;
-		}else {
-			$scope.isTurn = true;
+		$scope.yourTeamDeath = [];
+		$scope.theirTeamDeath = [];
+		//Check if game over
+		_.map($scope.yourTeam, function(champion){
+			if(champion.health > 0){
+				$scope.yourTeamDeath.push("alive");
+			}else{
+				$scope.yourTeamDeath.push("dead");
+			}
+		});
+		_.map($scope.theirTeam, function(champion){
+			if(champion.health > 0){
+				$scope.theirTeamDeath.push("alive");
+			}else{
+				$scope.theirTeamDeath.push("dead");
+			}
+		});
+
+		if(_.contains($scope.yourTeamDeath, "alive") === false){
+			$scope.isGameOver = true;
+			$scope.winner = lobbyService.opponentName;
 		}
+
+		if(_.contains($scope.theirTeamDeath, "alive") === false){
+			$scope.isGameOver = true;
+			$scope.winner = lobbyService.yourName;
+		}
+
+		//Change Turns
+		if($scope.isTurn === true && $scope.newRound === false){
+			$scope.isTurn = false;
+			$scope.newRound = true;
+		}else if($scope.isTurn === false && $scope.newRound === false) {
+			$scope.isTurn = true;
+			$scope.newRound = true;
+		}else {
+			if($scope.playerChampion.speed > $scope.opponentChampion.speed){
+				$scope.isTurn = true;
+			} else if($scope.playerChampion.speed === $scope.opponentChampion.speed) {
+				if($scope.isTurn === true){
+					$scope.isTurn = false;
+				}else {
+					$scope.isTurn = true;
+				}
+			} else {
+				$scope.isTurn = false;
+			}
+			$scope.newRound = false;
+		}
+
+		removeStatusEffects();
 
 		if($scope.playerChampion.health <= 0){
 			if($scope.pickChampionShown === false){
@@ -123,7 +183,6 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			}
 		}
 		
-		removeStatusEffects();
 
 
 	});
@@ -133,19 +192,30 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 		//Means player just took turn
 		if(data.sender === socket.io.engine.id) {
 			$scope.playerChampion = $scope.yourTeam[data.playerChampionId];
-			// $scope.playerChampion = $scope.yourTeam[0];
 			lobbyService.playerChampion  = $scope.playerChampion;
 		}else {
 			$scope.opponentChampion = $scope.theirTeam[data.playerChampionId];
-			// $scope.opponentChampion = $scope.theirTeam[0];
 			lobbyService.opponentChampion = $scope.opponentChampion;
 		}
 
-		if($scope.playerChampion.speed > $scope.opponentChampion.speed){
+		// TBD if this needs to be here
+		if($scope.playerChampion.speed > $scope.opponentChampion.speed && $scope.firstChampionPicked === true){
 			$scope.isTurn = true;
+			$scope.newRound = false;
+		}else if($scope.playerChampion.speed === $scope.opponentChampion.speed) {
+			//If speed is the same the host gets the turn (its bad...)
+			if(lobbyService.sessionID === socket.io.engine.id){
+				$scope.isTurn = true;
+			}else {
+				$scope.isTurn = false;
+			}
+			$scope.newRound = false;
 		} else {
 			$scope.isTurn = false;
+			$scope.newRound = false;
 		}
+
+		$scope.firstChampionPicked = true;
 
 	});
 
@@ -179,17 +249,19 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 		}
 		if(_.contains($scope.playerChampion.attackStatus, "blind") && $scope.isTurn === false) {
 			console.log("Removing players blind effect!");
+			var attackStatusCount = _.countBy($scope.playerChampion.attackStatus);
 			//Re adds attack boosts
 			if(attackStatusCount.attackBoost != undefined) { 
-				$scope.opponentChampion.attackBonus += 1 + (0.25 * attackStatusCount.attackBoost);
+				$scope.playerChampion.attackBonus += 1 + (0.25 * attackStatusCount.attackBoost);
 			} else {
-				$scope.opponentChampion.attackBonus += 1;
+				$scope.playerChampion.attackBonus += 1;
 			}
 			$scope.playerChampion.attackStatus = _.without($scope.playerChampion.attackStatus, "blind");
 		}
 
 		//// Defense Boost ////
 		if(_.contains($scope.playerChampion.defenseStatus, "defenseBoost") && $scope.isTurn === true){
+			console.log("Apply defense boost to player")
 			var defenseBoost = _.findWhere($scope.playerChampion.defenseStatus, "defenseBoost");
 			$scope.playerChampion.defenseStatus.splice(_.indexOf($scope.playerChampion.defenseStatus, defenseBoost), 1)
 			//Check if that was last boost if so remove bonus
@@ -198,6 +270,7 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			}
 		} 
 		if(_.contains($scope.opponentChampion.defenseStatus, "defenseBoost") && $scope.isTurn === false){
+			console.log("Apply defense boost to opponent");
 			var defenseBoost = _.findWhere($scope.opponentChampion.defenseStatus, "defenseBoost");
 			$scope.opponentChampion.defenseStatus.splice(_.indexOf($scope.opponentChampion.defenseStatus, defenseBoost), 1)
 			//Check if that was last boost if so remove bonus
@@ -205,6 +278,47 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 				$scope.opponentChampion.defenseBonus -= 0.25;
 			}
 		} 
+
+		//// Poison ////
+		var playerPoisonCheck = _.findWhere($scope.playerChampion.environmentalStatus, {type : "poison"});
+		var opponentPoisonCheck = _.findWhere($scope.opponentChampion.environmentalStatus, {type : "poison"})
+		if(playerPoisonCheck != undefined && $scope.isTurn === true) { 
+			console.log("Apply poison damage to player!");
+			$scope.playerChampion.health -= playerPoisonCheck.damage;
+			$scope.playerPoisonDamage = playerPoisonCheck.damage;
+			gameAnimation.playerPoison();
+			
+		}
+		if(opponentPoisonCheck != undefined && $scope.isTurn === false) {
+			console.log("Apply Poison damage to opponent");
+			$scope.opponentChampion.health -= opponentPoisonCheck.damage;
+			$scope.opponentPoisonDamage = opponentPoisonCheck.damage;
+			gameAnimation.opponentPoison();
+		}
+
+		//// Bleed ////
+		var playerBleedCheck = _.findWhere($scope.playerChampion.environmentalStatus, {type : "bleed"});
+		var opponentBleedCheck = _.findWhere($scope.opponentChampion.environmentalStatus, {type : "bleed"})
+		if(playerBleedCheck != undefined && $scope.isTurn === true) { 
+			console.log("Apply Bleed damage to player!");
+			$scope.playerChampion.health -= playerBleedCheck.damage;
+		}
+		if(opponentBleedCheck != undefined && $scope.isTurn === false) {
+			console.log("Apply Bleed damage to opponent");
+			$scope.opponentChampion.health -= opponentBleedCheck.damage;
+		}
+
+		//// Rebirth ////
+		if(_.contains($scope.playerChampion.defenseStatus, "rebirth") && $scope.playerChampion.health <= 0) {
+			$scope.playerChampion.health = $scope.playerChampion.maxHealth;
+			$scope.playerChampion.cost = $scope.playerChampion.costSize;
+			$scope.playerChampion.defenseStatus = _.without($scope.playerChampion.defenseStatus, "rebirth");
+		}
+		if(_.contains($scope.opponentChampion.defenseStatus, "rebirth") && $scope.opponentChampion.health <= 0) {
+			$scope.opponentChampion.health = $scope.opponentChampion.maxHealth;
+			$scope.opponentChampion.cost = $scope.opponentChampion.costSize;
+			$scope.opponentChampion.defenseStatus = _.without($scope.opponentChampion.defenseStatus, "rebirth");
+		}
 
 	}
 

@@ -53,6 +53,18 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 		document.getElementById($scope.selectedChampion.id).style.background = "none";
 		document.getElementById(id).style.background = "#F89406";
 		$scope.selectedChampion = championService.champions[id-1];
+		// Mouse over
+		document.getElementById($scope.selectedChampion.id).onmouseover = function() {
+		    this.style.background = "#F89406";
+		}
+		//Mouse out
+		document.getElementById($scope.selectedChampion.id).onmouseout = function() {
+		    if(id != $scope.selectedChampion.id){
+		    	this.style.background = "none";	
+		    }
+		    // this.style.background = "none";
+	
+		}
 
 	}
 
@@ -94,6 +106,7 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 		if($scope.timer === 0 && $scope.gameStart === true){
 			lobbyService.yourTeam = $scope.yourChampions;
 			lobbyService.theirTeam = $scope.theirChampions;
+
 			window.location.replace(location.protocol + '//' + location.host + '/#/game');
 		}else if($scope.timer === 0 && $scope.gameStart === false && $scope.isTurn === true){
 			selectRandomChampion();
@@ -134,7 +147,9 @@ app.controller('champSelectController', function($scope, $http, lobbyService, $i
 	socket.on('beginGame', function(data){
 		$scope.turn = false;
 		$scope.gameStart = true;
-		$scope.timer = 40;
+		$scope.timer = 15;
+		document.getElementById("leftPlayer").style.background = "#FF8800";
+		document.getElementById("rightPlayer").style.background = "#FF8800";
 	});
 
 });

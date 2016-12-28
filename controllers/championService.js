@@ -336,7 +336,7 @@ app.factory('championService', function(){
 						description : "Increase speed by 25%",
 						type: "earth",
 						cost: 25,
-						damage : 25,
+						damage : 0.25,
 						special : "speedBoost"
 					},
 					{
@@ -344,7 +344,7 @@ app.factory('championService', function(){
 						description : "Flap your wings hastily at your opponent causing their speed to decrease by 25%",
 						type: "earth",
 						cost : 25,
-						damage : 25,
+						damage : 0.25,
 						special : "speedAttack"
 					},
 					{
@@ -447,7 +447,7 @@ app.factory('championService', function(){
 						type: "earth",
 						cost : 60,
 						damage : 65,
-						special : "groupCleanse"
+						special : false
 					},
 					{
 						name : "Purify",
@@ -472,7 +472,7 @@ app.factory('championService', function(){
 				type : "fire",
 				defenseBonus : 0,
 				attackBonus : 1,
-				defenseStatus : [],
+				defenseStatus : ["rebirth"],
 				attackStatus : [],
 				environmentalStatus : [],
 				abilities : [
@@ -486,7 +486,7 @@ app.factory('championService', function(){
 					},
 					{
 						name : "Fiery Feather",
-						description : "Blast target with a Fiery Feather dealig 55 Fire damage",
+						description : "Blast target with a Fiery Feather dealing 55 Fire damage",
 						type: "fire",
 						cost: 50,
 						damage : 55,
@@ -497,8 +497,8 @@ app.factory('championService', function(){
 						description : "Flap wings decreasing opponents speed by 50%",
 						type: "composite",
 						cost : 50,
-						damage : 50,
-						special : "attackSpeed"
+						damage : 0.5,
+						special : "speedAttack"
 					},
 					{
 						name : "Rebirth",

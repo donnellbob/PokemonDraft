@@ -30,6 +30,30 @@ td{
 	/*border: 4px solid white;*/
 }
 
+.deathIcon img{
+	float: right;
+	max-width: 13%;
+	max-height: 65%;
+	height: auto;
+	width: auto;
+	margin-right: 10px;
+}
+
+.deathIconOpponent img{
+	float: left;
+	max-width: 15%;
+	max-height: 65%;
+	height: auto;
+	width: auto;
+	margin-left: 10px;
+}
+
+.typeIcon img{
+	max-width: 8%;
+	height: auto;
+	width: auto;
+}
+
 .btn-default {
 	color: white;
 	background: none;
@@ -65,12 +89,12 @@ td{
  	padding: 5px;
 }
 
-
 .rightChampions {
 	width: 100%;
 	font-size: 2vw;
 	height: 33.33%;
 	border: 4px solid white;
+	text-align: right;
 }
 
 .rightChampions tr:nth-child(even){
@@ -111,7 +135,7 @@ td{
 	background-color: #0088CD;
 	border-radius: 50% 50% 50% 50%;
 	padding: 10px;
-	max-width: 25%;
+	max-width: 20%;
 	height: auto;
 	width: auto;
 	margin: 0 auto;
@@ -123,27 +147,38 @@ td{
 	width: auto;
 	margin: 0 auto;
 }
+.championType {
+	float: right;
+	width: 22%;
+	border-radius: 50% 50% 50% 50%;
+	display: inline-block;
+	background-color: #044D7A;
+	border: solid 2px white;
+}
+
+.championType img {
+	/*max-height: 100%;*/
+	max-width: 80%;
+	height: auto;
+	width: auto;
+}
 
 /*HP & Cost bar*/
 .progress {
 	margin: 0 auto;
 }
 
-.progress-bar-custom {
-	/*background: #FF8800;*/
-}
-
 .opponentChampion {
 	padding: 10px;
 	position: fixed;
 	top: 20%;
-	right: 25%;
+	right: 30%;
 	display: inline-block;
 	margin-left: 40%;
 	text-align: center;
 	background-color: #044D7A;
 	border-radius: 50% 50% 50% 50%;
-	max-width: 25%;
+	max-width: 20%;
 	height: auto;
 	width: auto;
 	margin: 0 auto;
@@ -154,7 +189,22 @@ td{
 	height: auto;
 	width: auto;
 	margin: 0 auto;
-	margin-bottom: -10px;
+}
+
+.opponentType {
+	float: right;
+	width: 22%;
+	border-radius: 50% 50% 50% 50%;
+	display: inline-block;
+	background-color: #0088CD;
+	border: solid 2px white;
+}
+
+.opponentType img {
+	/*max-height: 100%;*/
+	max-width: 70%;
+	height: auto;
+	width: auto;
 }
 
 .yourName {
@@ -194,6 +244,34 @@ td{
 	font-size: 1vw;
 	white-space: initial;	
 }
+
+.abilityCost {
+	float: right;
+	margin-right: 10px;
+	padding: 0;
+
+}
+
+.abilityType {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.abilityType img{
+	display: inline-block;
+	max-height: 6%;
+	max-width: 6%;
+	height: auto;
+	width: auto;
+}
+
+.passiveAbility {
+	display: inline-block;
+	float: right;
+	margin-right: 10px;
+}
+
+
 
 .championAbilities tr:nth-child(even) td:nth-child(even), 
 .championAbilities tr:nth-child(odd) td:nth-child(odd)
@@ -252,6 +330,10 @@ td{
 	border: none;
 }
 
+.pickChampion td:hover{
+	border: 4px solid white;
+}
+
 .pickChampion { 
 	/*background-color: blue;*/
 	text-align: center;
@@ -275,5 +357,117 @@ td{
 	width: 80%;
  }
 
+.championHealth {
+	height: 100%;
+	
+}
+
+.championDetails {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.championInfo {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	left: 0;
+}
+
+/*Makes healthbar go right ot left*/
+.opponentHealthBar {
+	display: block;
+	float: right;
+}
+
+/*Poison*/
+
+.poisonText {
+	color: white;
+	font-size: 1.5vw;
+	font-size: 2.5vh;
+	position: absolute;
+	z-index: 110;
+	left: 16%;
+	top: 13%;
+
+}
 
 
+/* POISON */
+#playerPoison {
+    background: #51C95B;
+    width: 3vw;
+    height: 3vw;
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    left: 40%;
+    color: white;
+    visibility : hidden;
+
+}
+
+#playerPoison:before, #playerPoison:after {
+    content: "";
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3vw;
+    width: 3vw;
+    background: #51C95B;
+    z-index: 100;
+}
+#playerPoison:before {
+    -webkit-transform: rotate(30deg);
+       -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+         -o-transform: rotate(30deg);
+}
+#playerPoison:after {
+    -webkit-transform: rotate(60deg);
+       -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+         -o-transform: rotate(60deg);
+}
+
+
+#opponentPoison {
+    background: #51C95B;
+    width: 3vw;
+    height: 3vw;
+    position: absolute;
+    text-align: center;
+    top: 40%;
+    left: 40%;
+    color: white;
+    visibility : hidden;
+
+}
+
+#opponentPoison:before, #opponentPoison:after {
+    content: "";
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3vw;
+    width: 3vw;
+    background: #51C95B;
+    z-index: 100;
+}
+#opponentPoison:before {
+    -webkit-transform: rotate(30deg);
+       -moz-transform: rotate(30deg);
+        -ms-transform: rotate(30deg);
+         -o-transform: rotate(30deg);
+}
+#opponentPoison:after {
+    -webkit-transform: rotate(60deg);
+       -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+         -o-transform: rotate(60deg);
+}

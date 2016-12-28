@@ -10,29 +10,99 @@
 
 	<table class="leftChampions">
 		<tr><td class="yourName" ng-style="isTurn && {'background-color':'#FF8800'} || {'background-color': 'none'}" id="yourName">{{yourName}}</td></tr>
-		<tr><td>{{yourTeam[0].name}}</td>
+		<tr>
+			<td>
+				<div class="championDetails">
+					<div class="championHealth">
+						 <div class="progress-bar" role="progressbar" ng-style="{width: (yourTeam[0].health / yourTeam[0].maxHealth) * 100 + '%'}">
+						</div>	
+					</div>
+
+					<div class="championInfo">
+						<span class="typeIcon"><img ng-src="res/icons/{{yourTeam[0].type}}.png"></span>
+							{{yourTeam[0].name}}
+						<span class="deathIcon"><img src="res/icons/death.png" ng-style="yourTeam[0].health > 0 && {'opacity' : 0.1}"></span>
+					</div>
+				</div>
+			</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(0)" ng-hide="playerChampion === yourTeam[0]" ng-disabled="yourTeam[0].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(0)" ng-disabled="yourTeam[0].health <= 0 || isTurn === false || playerChampion === yourTeam[0]"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
-		<tr><td>{{yourTeam[1].name}}</td> 
+		<tr>
+			<td>
+				<div class="championDetails">
+					<div class="championHealth">
+						 <div class="progress-bar" role="progressbar" ng-style="{width: (yourTeam[1].health / yourTeam[1].maxHealth) * 100 + '%'}">
+						</div>	
+					</div>
+
+					<div class="championInfo">
+						<span class="typeIcon"><img ng-src="res/icons/{{yourTeam[1].type}}.png"></span>
+							{{yourTeam[1].name}}
+						<span class="deathIcon"><img src="res/icons/death.png" ng-style="yourTeam[1].health > 0 && {'opacity' : 0.1}"></span>
+					</div>
+				</div>
+			</td> 
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(1)" ng-hide="playerChampion === yourTeam[1] || yourTeam[1].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(1)" ng-disabled="yourTeam[1].health <= 0 || isTurn === false || playerChampion === yourTeam[1]"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
-		<tr><td>{{yourTeam[2].name}}</td>
+		<tr>
+			<td>
+				<div class="championDetails">
+					<div class="championHealth">
+						 <div class="progress-bar" role="progressbar" ng-style="{width: (yourTeam[2].health / yourTeam[2].maxHealth) * 100 + '%'}">
+						</div>	
+					</div>
+
+					<div class="championInfo">
+						<span class="typeIcon"><img ng-src="res/icons/{{yourTeam[2].type}}.png"></span>
+							{{yourTeam[2].name}}
+						<span class="deathIcon"><img src="res/icons/death.png" ng-style="yourTeam[2].health > 0 && {'opacity' : 0.1}"></span>
+					</div>
+				</div>
+			</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(2)" ng-hide="playerChampion === yourTeam[2] || yourTeam[2].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(2)" ng-disabled="yourTeam[2].health <= 0 || isTurn === false || playerChampion === yourTeam[2]"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
-		<tr><td>{{yourTeam[3].name}}</td>
+		<tr>
+			<td>
+				<div class="championDetails">
+					<div class="championHealth">
+						 <div class="progress-bar" role="progressbar" ng-style="{width: (yourTeam[3].health / yourTeam[3].maxHealth) * 100 + '%'}">
+						</div>	
+					</div>
+
+					<div class="championInfo">
+						<span class="typeIcon"><img ng-src="res/icons/{{yourTeam[3].type}}.png"></span>
+							{{yourTeam[3].name}}
+						<span class="deathIcon"><img src="res/icons/death.png" ng-style="yourTeam[3].health > 0 && {'opacity' : 0.1}"></span>
+					</div>
+				</div>
+			</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(3)" ng-hide="playerChampion === yourTeam[3] || yourTeam[3].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(3)" ng-disabled="yourTeam[3].health <= 0 || isTurn === false || playerChampion === yourTeam[3]"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
-		<tr><td>{{yourTeam[4].name}}</td>
+		<tr>
+			<td>
+				<div class="championDetails">
+					<div class="championHealth">
+						 <div class="progress-bar" role="progressbar" ng-style="{width: (yourTeam[4].health / yourTeam[4].maxHealth) * 100 + '%'}">
+						</div>	
+					</div>
+
+					<div class="championInfo">
+						<span class="typeIcon"><img ng-src="res/icons/{{yourTeam[4].type}}.png"></span>
+							{{yourTeam[4].name}}
+						<span class="deathIcon"><img src="res/icons/death.png" ng-style="yourTeam[4].health > 0 && {'opacity' : 0.1}"></span>
+					</div>
+				</div>
+			</td>
 			<td class="swapChampion">
-				<button class="btn btn-info" ng-click="swapChampion(4)" ng-hide="playerChampion === yourTeam[4] || yourTeam[4].health <= 0"> <span class="glyphicon glyphicon-retweet"> </span></button>
+				<button class="btn btn-info" ng-click="swapChampion(4)" ng-disabled="yourTeam[4].health <= 0 || isTurn === false || playerChampion === yourTeam[4]"> <span class="glyphicon glyphicon-retweet"> </span></button>
 			</td>
 		</tr>
 	</table>
@@ -40,17 +110,92 @@
 
 	<table class="countDown">
 		<tr><td>{{timer}}</td></tr>
-		<tr><td class="pass"><button class="btn btn-success passButton" ng-click="changeTurns()">Pass</button></td></tr>
+		<tr><td class="pass"><button class="btn btn-success passButton" ng-disabled= "!isTurn" ng-click="changeTurns(-1)">Pass</button></td></tr>
 	</table>
 
 	<div class="rightside">
 		<table class="rightChampions">
 			<tr><td class="theirName"  ng-style="isTurn && {'background-color':'none'} || {'background-color': '#FF8800'}" id="theirName">{{theirName}}</td></tr>
-			<tr><td>{{theirTeam[0].name}}</td></tr>
-			<tr><td>{{theirTeam[1].name}}</td></tr>
-			<tr><td>{{theirTeam[2].name}}</td></tr>
-			<tr><td>{{theirTeam[3].name}}</td></tr>
-			<tr><td>{{theirTeam[4].name}}</td></tr>
+			<tr>
+				<td>
+					<div class="championDetails">
+						<div class="championHealth">
+							 <div class="progress-bar progress-bar-danger opponentHealthBar" role="progressbar" ng-style="{width: (theirTeam[0].health / theirTeam[0].maxHealth) * 100 + '%'}">
+							</div>	
+						</div>
+
+						<div class="championInfo">
+							<span class="deathIconOpponent"><img src="res/icons/death.png" ng-style="theirTeam[0].health > 0 && {'opacity' : 0.1}"></span>
+							{{theirTeam[0].name}}
+							<span class="typeIcon"><img ng-src="res/icons/{{theirTeam[0].type}}.png"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="championDetails">
+						<div class="championHealth">
+							 <div class="progress-bar progress-bar-danger opponentHealthBar" role="progressbar" ng-style="{width: (theirTeam[1].health / theirTeam[1].maxHealth) * 100 + '%'}">
+							</div>	
+						</div>
+
+						<div class="championInfo">
+							<span class="deathIconOpponent"><img src="res/icons/death.png" ng-style="theirTeam[1].health > 0 && {'opacity' : 0.1}"></span>
+							{{theirTeam[1].name}}
+							<span class="typeIcon"><img ng-src="res/icons/{{theirTeam[1].type}}.png"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="championDetails">
+						<div class="championHealth">
+							 <div class="progress-bar progress-bar-danger opponentHealthBar" role="progressbar" ng-style="{width: (theirTeam[2].health / theirTeam[2].maxHealth) * 100 + '%'}">
+							</div>	
+						</div>
+
+						<div class="championInfo">
+							<span class="deathIconOpponent"><img src="res/icons/death.png" ng-style="theirTeam[2].health > 0 && {'opacity' : 0.1}"></span>
+							{{theirTeam[2].name}}
+							<span class="typeIcon"><img ng-src="res/icons/{{theirTeam[2].type}}.png"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="championDetails">
+						<div class="championHealth">
+							 <div class="progress-bar progress-bar-danger opponentHealthBar" role="progressbar" ng-style="{width: (theirTeam[3].health / theirTeam[3].maxHealth) * 100 + '%'}">
+							</div>	
+						</div>
+
+						<div class="championInfo">
+							<span class="deathIconOpponent"><img src="res/icons/death.png" ng-style="theirTeam[3].health > 0 && {'opacity' : 0.1}"></span>
+							{{theirTeam[3].name}}
+							<span class="typeIcon"><img ng-src="res/icons/{{theirTeam[3].type}}.png"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="championDetails">
+						<div class="championHealth">
+							 <div class="progress-bar progress-bar-danger opponentHealthBar" role="progressbar" ng-style="{width: (theirTeam[4].health / theirTeam[4].maxHealth) * 100 + '%'}">
+							</div>	
+						</div>
+
+						<div class="championInfo">
+							<span class="deathIconOpponent"><img src="res/icons/death.png" ng-style="theirTeam[4].health > 0 && {'opacity' : 0.1}"></span>
+							{{theirTeam[4].name}}
+							<span class="typeIcon"><img ng-src="res/icons/{{theirTeam[4].type}}.png"></span>
+						</div>
+					</div>
+				</td>
+			</tr>
 		</table>
 
 		<div class="combatLog">
@@ -72,24 +217,66 @@
 		<table class="championAbilities">
 			<tr>
 				<!-- ng-disabled="isTurn === false" -->
-				<td><button class="btn btn-default" ng-click="changeTurns(0)"> 
+				<td><button class="btn btn-default" ng-click="changeTurns(0)" ng-disabled="isTurn === false || playerChampion.abilities[0].cost > playerChampion.cost || playerChampion.abilities[0].type === 'passive'"> 
+					<div class="abilityType">
+					<img src="res/icons/composite.png" ng-style="playerChampion.abilities[0].type != 'composite' && {'opacity' : '0.2'}">
+					<img src="res/icons/water.png" ng-style="playerChampion.abilities[0].type != 'water' && {'opacity' : '0.2'}">
+					<img src="res/icons/fire.png" ng-style="playerChampion.abilities[0].type != 'fire' && {'opacity' : '0.2'}">
+					<img src="res/icons/earth.png" ng-style="playerChampion.abilities[0].type != 'earth' && {'opacity' : '0.2'}">
+
+					<span class="passiveAbility" ng-hide="playerChampion.abilities[0].type != 'passive'">
+					Passive</span>
+					</div>
+					<div class="abilityCost">{{playerChampion.abilities[0].cost}}</div>
 					<h3 class="abilityTitle"> {{playerChampion.abilities[0].name}} -</h3>
 					<p> {{playerChampion.abilities[0].description}} </p>
 				</button></td>
 				<!-- ng-disabled="isTurn === false" -->
-				<td><button class="btn btn-default" ng-click="changeTurns(1)"> 
+				<td><button class="btn btn-default" ng-click="changeTurns(1)" ng-disabled="isTurn === false || playerChampion.abilities[1].cost > playerChampion.cost || playerChampion.abilities[1].type === 'passive'">
+					<div class="abilityType">
+					<img src="res/icons/composite.png" ng-style="playerChampion.abilities[1].type != 'composite' && {'opacity' : '0.2'}">
+					<img src="res/icons/water.png" ng-style="playerChampion.abilities[1].type != 'water' && {'opacity' : '0.2'}">
+					<img src="res/icons/fire.png" ng-style="playerChampion.abilities[1].type != 'fire' && {'opacity' : '0.2'}">
+					<img src="res/icons/earth.png" ng-style="playerChampion.abilities[1].type != 'earth' && {'opacity' : '0.2'}">
+
+					<span class="passiveAbility" ng-hide="playerChampion.abilities[1].type != 'passive'">
+					Passive</span>
+					</div> 
+					<div class="abilityCost">{{playerChampion.abilities[1].cost}}</div>
 					<h3 class="abilityTitle"> {{playerChampion.abilities[1].name}} -</h3>
 					<p> {{playerChampion.abilities[1].description}} </p>
 				</button></td>
 			</tr>
 			<tr>
 				<!-- ng-disabled="isTurn === false" -->
-				<td><button class="btn btn-default" ng-click="changeTurns(2)"> 
+				<td><button class="btn btn-default" ng-click="changeTurns(2)" ng-disabled="isTurn === false || playerChampion.abilities[2].cost > playerChampion.cost || playerChampion.abilities[2].type === 'passive'"> 
+					<div class="abilityType">
+					<img src="res/icons/composite.png" ng-style="playerChampion.abilities[2].type != 'composite' && {'opacity' : '0.2'}">
+					<img src="res/icons/water.png" ng-style="playerChampion.abilities[2].type != 'water' && {'opacity' : '0.2'}">
+					<img src="res/icons/fire.png" ng-style="playerChampion.abilities[2].type != 'fire' && {'opacity' : '0.2'}">
+					<img src="res/icons/earth.png" ng-style="playerChampion.abilities[2].type != 'earth' && {'opacity' : '0.2'}">
+
+					<span class="passiveAbility" ng-hide="playerChampion.abilities[2].type != 'passive'">
+					Passive</span>
+					</div>
+					<div class="abilityCost">{{playerChampion.abilities[2].cost}}</div>
 					<h3 class="abilityTitle"> {{playerChampion.abilities[2].name}} -</h3>
 					<p> {{playerChampion.abilities[2].description}} </p>
 				</button></td>
 				<!-- ng-disabled="isTurn === false" -->
-				<td><button class="btn btn-default" ng-click="changeTurns(3)"> 
+				<td><button class="btn btn-default" ng-click="changeTurns(3)" ng-disabled="isTurn === false || playerChampion.abilities[3].cost > playerChampion.cost || playerChampion.abilities[3].type === 'passive'">
+					<div class="abilityType">
+					<img src="res/icons/composite.png" ng-style="playerChampion.abilities[3].type != 'composite' && {'opacity' : '0.2'}">
+					<img src="res/icons/water.png" ng-style="playerChampion.abilities[3].type != 'water' && {'opacity' : '0.2'}">
+					<img src="res/icons/fire.png" ng-style="playerChampion.abilities[3].type != 'fire' && {'opacity' : '0.2'}">
+					<img src="res/icons/earth.png" ng-style="playerChampion.abilities[3].type != 'earth' && {'opacity' : '0.2'}">
+
+					<span class="passiveAbility" ng-hide="playerChampion.abilities[3].type != 'passive'">
+					Passive</span>
+					</div> 
+
+
+					<div class="abilityCost">{{playerChampion.abilities[3].cost}}</div>
 					<h3 class="abilityTitle"> {{playerChampion.abilities[3].name}} -</h3>
 					<p> {{playerChampion.abilities[3].description}}</p>
 				</button></td>
@@ -100,7 +287,9 @@
 
 
 	<div class="opponentChampion">
+		<span class="opponentType"> <img ng-src="res/icons/{{opponentChampion.type}}.png"></span>
 		<img src="{{opponentChampion.asset}}">
+		<div id="opponentPoison"><span class="poisonText">{{opponentPoisonDamage}}</span></div>
 		<div class="progress">
 		  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (opponentChampion.health / opponentChampion.maxHealth) * 100 + '%'}">
 		  {{opponentChampion.health}} / {{opponentChampion.maxHealth}}
@@ -118,8 +307,9 @@
 
 
 	<div class="playerChampion">
+		<span class="championType"> <img ng-src="res/icons/{{playerChampion.type}}.png"></span>
 		<img src="{{playerChampion.asset}}">
-
+		<div id="playerPoison"><span class="poisonText">{{playerPoisonDamage}}</span></div>
 		<div class="progress">
 			  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (playerChampion.health / playerChampion.maxHealth) * 100 + '%'}">
 			  	{{playerChampion.health}} / {{playerChampion.maxHealth}}
