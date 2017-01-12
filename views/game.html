@@ -201,15 +201,19 @@
 		<div class="combatLog">
 			<h3> Combat Log </h3>
 			<div class="log">
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
-			Jim used attack dealing 52 damage! <br>
+				<div ng-repeat="message in combatLog track by $index">
+					<span class="combatLogName" ng-style="message.turn === true && {'color' : '#51A351'} ||
+					message.turn === false && {'color' : '#BD362F'}">{{message.name}}</span>
+					<span class="combatLogText" ng-style="
+					message.type === 'basic' && {'color' : 'white'} ||
+					message.type === 'boost' && {'color' : '#32E8D5'} ||
+					message.type === 'poison' && {'color' : '#07F958'} ||
+					message.type === 'statAttack' && {'color' : '#E2F809'} ||
+					message.type === 'cleanse' && {'color' : '#671477'} ||
+					message.type === 'blind' && {'color' : '#908384'} ||
+					message.type === 'unattackable' && {'color' : '#A1FECE'}
+					">{{message.text}}</span>
+				</div>
 			</div>
 		</div>
 
@@ -286,9 +290,9 @@
 	</div>
 
 
-	<div class="opponentChampion">
+	<div class="opponentChampion" id="opponentAnimate">
 		<span class="opponentType"> <img ng-src="res/icons/{{opponentChampion.type}}.png"></span>
-		<img src="{{opponentChampion.asset}}">
+		<img src="{{opponentChampion.asset}}" id="opponentImage">
 		<div id="opponentPoison"><span class="poisonText">{{opponentPoisonDamage}}</span></div>
 		<div class="progress">
 		  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (opponentChampion.health / opponentChampion.maxHealth) * 100 + '%'}">
@@ -305,10 +309,9 @@
 		</div>
 	</div>
 
-
-	<div class="playerChampion">
+	<div class="playerChampion" id="playerAnimate">
 		<span class="championType"> <img ng-src="res/icons/{{playerChampion.type}}.png"></span>
-		<img src="{{playerChampion.asset}}">
+		<img src="{{playerChampion.asset}}" id="playerImage">
 		<div id="playerPoison"><span class="poisonText">{{playerPoisonDamage}}</span></div>
 		<div class="progress">
 			  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (playerChampion.health / playerChampion.maxHealth) * 100 + '%'}">

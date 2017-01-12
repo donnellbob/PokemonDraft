@@ -1,4 +1,4 @@
-app.factory('championAbilities', function(lobbyService){
+app.factory('championAbilities', function(lobbyService, gameAnimation, combatLog){
 	var typeCounterDamage = 1.25;
 
 	function checkCounter(attackType, defenseType){
@@ -34,6 +34,7 @@ app.factory('championAbilities', function(lobbyService){
 		} else { 
 			defender.health -= damage;
 		}
+		combatLog.basicAttack(attacker.name, damage, attacker.abilities[id].type,  checkCounter(attacker.abilities[id].type, defender.type), defender.name, isTurn)
 	}
 
 	function basicAttack(isTurn, id) {
@@ -41,9 +42,13 @@ app.factory('championAbilities', function(lobbyService){
 		if(isTurn === true) {
 			var defender = lobbyService.opponentChampion;
 			var attacker = lobbyService.playerChampion;
+			// Animation
+			gameAnimation.playerBasicAttack();
 		}else {
 			var attacker = lobbyService.opponentChampion;
 			var defender = lobbyService.playerChampion;
+			// Animation
+			gameAnimation.opponentBasicAttack();
 		}
 		if(checkCounter(attacker.abilities[id].type, defender.type) === true) {
 			damage = ((attacker.abilities[id].damage * typeCounterDamage) * attacker.attackBonus);	
@@ -53,10 +58,13 @@ app.factory('championAbilities', function(lobbyService){
 		console.log(attacker.name + " dealt " + damage + " damage with a " + attacker.attackBonus + " attack boost");
 		//Check if opponent has defense else attack
 		if(defender.defenseBonus != 0){
-			defender.health -= (damage - (damage * defender.defenseBonus));
+			damage = (damage - (damage * defender.defenseBonus));
+			defender.health -= damage;
 		} else { 
 			defender.health -= damage;
 		}
+		// Update combat log!
+		combatLog.basicAttack(attacker.name, damage, attacker.abilities[id].type,  checkCounter(attacker.abilities[id].type, defender.type), defender.name, isTurn);
 	}
 
 	return {
@@ -71,6 +79,7 @@ app.factory('championAbilities', function(lobbyService){
 				if (lobbyService.playerChampion.health > lobbyService.playerChampion.maxHealth) { 
 					lobbyService.playerChampion.health = lobbyService.playerChampion.maxHealth;
 				}
+				combatLog.heal(lobbyService.playerChampion.name, championAbility.damage, true);
 			} else { 
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "heal"});
 				lobbyService.opponentChampion.health += championAbility.damage;
@@ -78,15 +87,20 @@ app.factory('championAbilities', function(lobbyService){
 				if (lobbyService.opponentChampion.health > lobbyService.opponentChampion.maxHealth) { 
 					lobbyService.opponentChampion.health = lobbyService.opponentChampion.maxHealth;
 				}
+				combatLog.heal(lobbyService.opponentChampion.name, championAbility.damage, true);
 			}
 		},
 		unattackable : function (isTurn) {
 			if (isTurn === true) { 
 				lobbyService.playerChampion.defenseBonus = 1;
 				lobbyService.playerChampion.defenseStatus.push("unattackable");
+				gameAnimation.playerFade("unattackable");
+				combatLog.unattackable(lobbyService.playerChampion.name, isTurn);
 			} else { 
 				lobbyService.opponentChampion.defenseBonus = 1;
 				lobbyService.opponentChampion.defenseStatus.push("unattackable");
+				gameAnimation.opponentFade("unattackable");
+				combatLog.unattackable(lobbyService.opponentChampion.name, isTurn);
 			}
 		},
 		blind : function(isTurn) { 
@@ -95,11 +109,13 @@ app.factory('championAbilities', function(lobbyService){
 				lobbyService.opponentChampion.attackStatus.push("blind");
 				var championAbility = _.findWhere(lobbyService.playerChampion.abilities, {special: "blind"});
 				specialAttack(true, championAbility.damage);
+				combatLog.blind(lobbyService.opponentChampion.name, isTurn);
 			} else {
 				lobbyService.playerChampion.attackBonus = 0;
 				lobbyService.playerChampion.attackStatus.push("blind");
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "blind"});
 				specialAttack(false, championAbility.damage);
+				combatLog.blind(lobbyService.playerChampion.name, isTurn);
 			}
 		},
 		attackBoost : function(isTurn) {
@@ -107,9 +123,12 @@ app.factory('championAbilities', function(lobbyService){
 			if(isTurn === true) {
 				lobbyService.playerChampion.attackBonus += 0.25;
 				lobbyService.playerChampion.attackStatus.push("attackBoost");
+
+				combatLog.boost(lobbyService.playerChampion.name, "attack", 25, isTurn);
 			}else {
 				lobbyService.opponentChampion.attackBonus += 0.25;
 				lobbyService.opponentChampion.attackStatus.push("attackBoost");
+				combatLog.boost(lobbyService.opponentChampion.name, "attack", 25, isTurn);
 			}
 		},
 		costAttack : function(isTurn) { 
@@ -131,7 +150,7 @@ app.factory('championAbilities', function(lobbyService){
 					lobbyService.playerChampion.defenseStatus.push("defenseBoost", "defenseBoost", "defenseBoost");
 					lobbyService.playerChampion.defenseBonus += 0.25;
 				}
-
+				combatLog.boost(lobbyService.playerChampion.name, "defense", 25, isTurn);
 			}else { 
 				if(_.contains(lobbyService.opponentChampion.defenseStatus, "defenseBoost")){
 					lobbyService.opponentChampion.defenseStatus = _.without(lobbyService.opponentChampion.defenseStatus, "defenseBoost");
@@ -140,7 +159,7 @@ app.factory('championAbilities', function(lobbyService){
 					lobbyService.opponentChampion.defenseStatus.push("defenseBoost", "defenseBoost", "defenseBoost");
 					lobbyService.opponentChampion.defenseBonus += 0.25;
 				}
-
+				combatLog.boost(lobbyService.opponentChampion.name, "defense", 25, isTurn);
 			}
 		},
 		poison : function(isTurn) { 
@@ -158,6 +177,7 @@ app.factory('championAbilities', function(lobbyService){
 						lobbyService.opponentChampion.environmentalStatus.push(poison);
 					}
 				}
+				combatLog.poison(lobbyService.opponentChampion.name, poison.damage, true, true);
 			} else {
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "poison"});
 				var poison = {type: "poison", damage : championAbility.damage};
@@ -172,6 +192,7 @@ app.factory('championAbilities', function(lobbyService){
 						lobbyService.playerChampion.environmentalStatus.push(poison);
 					}
 				}
+				combatLog.poison(lobbyService.playerChampion.name, poison.damage, true, true);
 			}
 		},
 		bleed : function(isTurn) {
@@ -209,9 +230,11 @@ app.factory('championAbilities', function(lobbyService){
 			if(isTurn === true) {
 				var championAbility = _.findWhere(lobbyService.playerChampion.abilities, {special: "speedBoost"});
 				lobbyService.playerChampion.speed = (lobbyService.playerChampion.speed * championAbility.damage) + lobbyService.playerChampion.speed;
+				combatLog.boost(lobbyService.playerChampion.name, "speed", (championAbility.damage * 100), isTurn);
 			} else {
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "speedBoost"});
 				lobbyService.opponentChampion.speed = (lobbyService.opponentChampion.speed * championAbility.damage) + lobbyService.opponentChampion.speed;
+				combatLog.boost(lobbyService.opponentChampion.name, "speed", (championAbility.damage * 100), isTurn);
 			}
 		},
 		speedAttack : function(isTurn) {
@@ -221,12 +244,14 @@ app.factory('championAbilities', function(lobbyService){
 				if(lobbyService.opponentChampion.speed < 0){
 					lobbyService.opponentChampion.speed = 0;
 				}
+				combatLog.statAttack(lobbyService.opponentChampion.name, "speed", (championAbility.damage * 100), true);
 			}else{
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "speedAttack"});
 				lobbyService.playerChampion.speed = lobbyService.playerChampion.speed - (lobbyService.playerChampion.speed * championAbility.damage);
 				if(lobbyService.playerChampion.speed < 0){
 					lobbyService.playerChampion.speed = 0;
-				}		
+				}
+				combatLog.statAttack(lobbyService.playerChampion.name, "speed", (championAbility.damage * 100), false);		
 			}
 		},
 		groupHeal : function(isTurn) {
@@ -241,6 +266,7 @@ app.factory('championAbilities', function(lobbyService){
 						champion.health = champion.maxHealth;
 					}
 				});
+				combatLog.heal("Your team", championAbility.damage, true);
 			} else {
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "groupHeal"});
 				_.map(lobbyService.theirTeam, function(champion){
@@ -251,7 +277,8 @@ app.factory('championAbilities', function(lobbyService){
 					if(champion.health > champion.maxHealth) {
 						champion.health = champion.maxHealth;
 					}
-				});	
+				});
+				combatLog.heal("Their team", championAbility.damage, false);	
 			}
 			
 		},
@@ -260,10 +287,12 @@ app.factory('championAbilities', function(lobbyService){
 				_.map(lobbyService.yourTeam, function(champion){
 					champion.environmentalStatus = [];
 				});
+				combatLog.cleanse("Your team", isTurn);
 			} else {
 				_.map(lobbyService.theirTeam, function(champion){
 					champion.environmentalStatus = [];
 				});
+				combatLog.cleanse("Their team", isTurn);
 			}
 		},
 		groupDefenseBoost : function(isTurn) {
@@ -277,6 +306,8 @@ app.factory('championAbilities', function(lobbyService){
 						champion.defenseBonus += 0.25;
 					}
 				});
+
+				combatLog.boost("Your teams", "defense", 25, isTurn);
 			}else { 
 				_.map(lobbyService.theirTeam, function(champion){
 					if(_.contains(champion.defenseStatus, "defenseBoost")){
@@ -287,13 +318,16 @@ app.factory('championAbilities', function(lobbyService){
 						champion.defenseBonus += 0.25;
 					}
 				});
+				combatLog.boost("Their teams", "defense", 25, isTurn);
 			}
 		},
 		cleanse : function(isTurn) {
 			if(isTurn === true){
 				lobbyService.playerChampion.environmentalStatus = [];
+				combatLog.cleanse(lobbyService.playerChampion.name, isTurn);
 			}else{
 				lobbyService.opponentChampion.environmentalStatus = [];
+				combatLog.cleanse(lobbyService.opponentChampion.name, isTurn);
 			}
 		},
 		rebirth : function(isTurn) {

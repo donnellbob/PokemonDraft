@@ -142,6 +142,7 @@ body {
 	background-color: #044D7A;
 
 }
+
 .abilityCells{
 	width: 100%;
 	height: 100%;
@@ -169,7 +170,7 @@ body {
 	border: none;
 }
 
-.championDisplay img{
+.championImage{
 	max-width: 50%;
 	/*max-height: 33.33%;*/
 	height: auto;
@@ -180,18 +181,37 @@ body {
 }
 
 .championDisplay h2{
-	display: inline-block;
-	font-size: 2vw;
+	white-space: nowrap;
+	font-size: 1.1em;
 	color: #FF8800;
+	-webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
 }
+
+.selectedChampionType img {
+	display: inline-block;
+	padding: 0;
+	margin: 0 auto;
+	max-width: 15%;
+	height: auto;
+	width: auto;
+
+}
+
 .championDetails{
 	display: inline-block;
+	/*white-space: nowrap;*/
 }
-.championDisplay li{
-	font-size: 1.5vw;
+
+.championDisplay ul {
 	display: inline-block;
+	white-space: nowrap;
+}
+
+.championDisplay li {
+	font-size: 1em;
+	/*display: inline-block;*/
 	list-style: none;
-	margin-left: 25px;
 }
 
 .championStat{
@@ -202,6 +222,28 @@ body {
 	width: 40%;
 	border: none;
 }
+
+.abilityType {
+	display: inline-block;
+	margin-left: 10px;
+	text-align: left
+}
+
+.abilityType img{
+	display: inline-block;
+	max-height: 12%;
+	max-width: 12%;
+	height: auto;
+	width: auto;
+	margin: 0;
+}
+
+.passiveAbility {
+	display: inline-block;
+	float: right;
+	margin-right: 10px;
+}
+
 
 
 .championAbilities h3{
@@ -234,6 +276,62 @@ body {
 	color: #BD362F;
 }
 
+
+.rightChampionType {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 35%;
+	border-radius: 0% 0% 20% 0%;
+	border: solid 2px white;
+}
+
+.rightChampionType:nth-child(odd){
+	background-color: #044D7A;
+}
+
+.rightChampionType:nth-child(even){
+	background-color: #00587D;
+}
+
+.rightChampionType img {
+	/*max-height: 100%;*/
+	max-width: 70%;
+	height: auto;
+	width: auto;
+}
+
+.leftChampionType {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 35%;
+	border-radius: 0% 0% 0% 20%;
+	border: solid 2px white;
+}
+
+.leftChampionType:nth-child(odd){
+	background-color: #044D7A;
+}
+
+.leftChampionType:nth-child(even){
+	background-color: #00587D;
+}
+
+.leftChampionType img {
+	/*max-height: 100%;*/
+	max-width: 70%;
+	height: auto;
+	width: auto;
+}
+
+.rightChampSelect td{
+	position: relative;
+}
+
+.leftChampSelect td {
+	position: relative;
+}
 
 td {
 	border: 3px solid white;

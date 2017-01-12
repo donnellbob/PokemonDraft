@@ -1,4 +1,4 @@
-app.controller('gameController', function($scope, $http, lobbyService, $modal, $timeout, $interval, championService, _, championAbilities, gameAnimation) {
+app.controller('gameController', function($scope, $http, lobbyService, $modal, $timeout, $interval, championService, _, championAbilities, gameAnimation, combatLog) {
 	$scope.timer = 40;
 	$scope.isTurn = false;
 	$scope.isGameOver = false;
@@ -12,6 +12,10 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 	$scope.theirTeam = lobbyService.theirTeam;
 	$scope.playerChampion = lobbyService.playerChampion;
 	$scope.opponentChampion = lobbyService.opponentChampion;
+	$scope.combatLog = combatLog.combatLog;
+
+	// If opponent picks first dont show champion
+	var opponentChampionPickFirst = false;
 
 
 	$scope.swapChampion = function(id){
@@ -193,6 +197,13 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 		if(data.sender === socket.io.engine.id) {
 			$scope.playerChampion = $scope.yourTeam[data.playerChampionId];
 			lobbyService.playerChampion  = $scope.playerChampion;
+
+			if(opponentChampionPickFirst != false && $scope.firstChampionPicked === true) {
+				$scope.opponentChampion = opponentChampionPickFirst;
+				lobbyService.opponentChampion = opponentChampionPickFirst;
+			}
+		}else if(data.sender != socket.io.engine.id && $scope.firstChampionPicked === false){
+			opponentChampionPickFirst = $scope.theirTeam[data.playerChampionId];
 		}else {
 			$scope.opponentChampion = $scope.theirTeam[data.playerChampionId];
 			lobbyService.opponentChampion = $scope.opponentChampion;
@@ -228,11 +239,15 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			console.log("Removing players unattackable status");
 			$scope.playerChampion.defenseBonus -= 1;
 			$scope.playerChampion.defenseStatus = _.without($scope.playerChampion.defenseStatus, "unattackable");
+
+			gameAnimation.playerFade("return");
 		}
 		if (_.contains($scope.opponentChampion.defenseStatus, "unattackable") && $scope.isTurn === false) { 
 			console.log("Removing opponents unattackable status");
 			$scope.opponentChampion.defenseBonus -= 1;
 			$scope.opponentChampion.defenseStatus = _.without($scope.opponentChampion.defenseStatus, "unattackable");
+
+			gameAnimation.opponentFade("return");
 		}
 
 		//// Blind Remove ////
@@ -287,6 +302,7 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			$scope.playerChampion.health -= playerPoisonCheck.damage;
 			$scope.playerPoisonDamage = playerPoisonCheck.damage;
 			gameAnimation.playerPoison();
+			combatLog.poison(lobbyService.playerChampion.name, playerPoisonCheck.damage, false, true);
 			
 		}
 		if(opponentPoisonCheck != undefined && $scope.isTurn === false) {
@@ -294,6 +310,7 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			$scope.opponentChampion.health -= opponentPoisonCheck.damage;
 			$scope.opponentPoisonDamage = opponentPoisonCheck.damage;
 			gameAnimation.opponentPoison();
+			combatLog.poison(lobbyService.opponentChampion.name, opponentPoisonCheck.damage, false, false);
 		}
 
 		//// Bleed ////

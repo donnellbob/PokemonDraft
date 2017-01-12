@@ -10,11 +10,26 @@
 <table class="leftChampSelect">
 
 	<tr height="5%"><td class="yourChamps">Your Champions</td></tr>
-	<tr height="19%"><td><img src="{{yourChampions[0].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{yourChampions[1].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{yourChampions[2].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{yourChampions[3].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{yourChampions[4].asset}}"></td></tr>
+	<tr height="19%"><td>
+		<span class="leftChampionType" ng-hide="yourChampions[0] === undefined"> <img ng-src="res/icons/{{yourChampions[0].type}}.png"></span>
+		<img ng-src="{{yourChampions[0].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="leftChampionType" ng-hide="yourChampions[1] === undefined"> <img ng-src="res/icons/{{yourChampions[1].type}}.png"></span>
+		<img ng-src="{{yourChampions[1].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="leftChampionType" ng-hide="yourChampions[2] === undefined"> <img ng-src="res/icons/{{yourChampions[2].type}}.png"></span>
+		<img ng-src="{{yourChampions[2].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="leftChampionType" ng-hide="yourChampions[3] === undefined"> <img ng-src="res/icons/{{yourChampions[3].type}}.png"></span>
+		<img ng-src="{{yourChampions[3].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="leftChampionType" ng-hide="yourChampions[4] === undefined"> <img ng-src="res/icons/{{yourChampions[4].type}}.png"></span>
+		<img ng-src="{{yourChampions[4].asset}}">
+	</td></tr>
 
 </table>
 
@@ -32,7 +47,7 @@
 			<tr ng-repeat="champion in listOfChampions">
 				<td ng-repeat="champ in champion" class="champions">
 					<button class="championButton" ng-click="selectChampion(champ.id)" id="{{champ.id}}">
-						<img class="champions" src="{{champ.asset}}">
+						<img class="champions" ng-src="{{champ.asset}}">
 					</button>
 				</td>
 			</tr>
@@ -45,13 +60,17 @@
 	<tr>
 		<td class="championDisplay">
 		<div class="championDetails">
-			<img src="{{selectedChampion.asset}}">
-			
-			<h2>{{selectedChampion.name}}</h2>
+			<img class = "championImage" ng-src="{{selectedChampion.asset}}">
+				<h2>
+					<span class="selectedChampionType" >
+						<img ng-src="res/icons/{{selectedChampion.type}}.png">
+					</span>
+					{{selectedChampion.name}}
+				</h2>
 			
 			<ul>
 				<li> <span class="championStat"> Health : </span> {{selectedChampion.health}} </li>
-				<li> <span class="championStat"> Resource : </span> {{selectedChampion.cost}} </li>
+				<li> <span class="championStat"> Cost : </span> {{selectedChampion.cost}} </li>
 				<li> <span class="championStat"> Speed : </span> {{selectedChampion.speed}} </li>
 			</ul>
 			</div>
@@ -65,16 +84,60 @@
 		<td class="championAbilities">
 			<table class="abilityCells">
 				<tr>
-					<td> <h3> {{selectedChampion.abilities[0].name}}</h3> 
-						{{selectedChampion.abilities[0].description}} </td>
-					<td> <h3> {{selectedChampion.abilities[1].name}}</h3> 
-						{{selectedChampion.abilities[1].description}} </td>
+					<td> 
+					<div class="abilityType">
+						<img src="res/icons/composite.png" ng-style="selectedChampion.abilities[0].type != 'composite' && {'opacity' : '0.2'}">
+						<img src="res/icons/water.png" ng-style="selectedChampion.abilities[0].type != 'water' && {'opacity' : '0.2'}">
+						<img src="res/icons/fire.png" ng-style="selectedChampion.abilities[0].type != 'fire' && {'opacity' : '0.2'}">
+						<img src="res/icons/earth.png" ng-style="selectedChampion.abilities[0].type != 'earth' && {'opacity' : '0.2'}">
+
+						<span class="passiveAbility" ng-hide="selectedChampion.abilities[0].type != 'passive'">
+						Passive</span>
+					</div> 
+						<h3> {{selectedChampion.abilities[0].name}}</h3> 
+						{{selectedChampion.abilities[0].description}} 
+					</td>
+					<td> 
+						<div class="abilityType">
+							<img src="res/icons/composite.png" ng-style="selectedChampion.abilities[1].type != 'composite' && {'opacity' : '0.2'}">
+							<img src="res/icons/water.png" ng-style="selectedChampion.abilities[1].type != 'water' && {'opacity' : '0.2'}">
+							<img src="res/icons/fire.png" ng-style="selectedChampion.abilities[1].type != 'fire' && {'opacity' : '0.2'}">
+							<img src="res/icons/earth.png" ng-style="selectedChampion.abilities[1].type != 'earth' && {'opacity' : '0.2'}">
+
+							<span class="passiveAbility" ng-hide="selectedChampion.abilities[1].type != 'passive'">
+							Passive</span>
+						</div> 
+						<h3> {{selectedChampion.abilities[1].name}}</h3> 
+						{{selectedChampion.abilities[1].description}} 
+					</td>
 				</tr>
 				<tr>
-					<td> <h3> {{selectedChampion.abilities[2].name}}</h3> 
-						{{selectedChampion.abilities[2].description}} </td>
-					<td> <h3> {{selectedChampion.abilities[3].name}}</h3> 
-						{{selectedChampion.abilities[3].description}} </td>
+					<td> 
+						<div class="abilityType">
+							<img src="res/icons/composite.png" ng-style="selectedChampion.abilities[2].type != 'composite' && {'opacity' : '0.2'}">
+							<img src="res/icons/water.png" ng-style="selectedChampion.abilities[2].type != 'water' && {'opacity' : '0.2'}">
+							<img src="res/icons/fire.png" ng-style="selectedChampion.abilities[2].type != 'fire' && {'opacity' : '0.2'}">
+							<img src="res/icons/earth.png" ng-style="selectedChampion.abilities[2].type != 'earth' && {'opacity' : '0.2'}">
+
+							<span class="passiveAbility" ng-hide="selectedChampion.abilities[2].type != 'passive'">
+							Passive</span>
+						</div> 
+						<h3> {{selectedChampion.abilities[2].name}}</h3> 
+						{{selectedChampion.abilities[2].description}} 
+					</td>
+					<td> 
+					<div class="abilityType">
+						<img src="res/icons/composite.png" ng-style="selectedChampion.abilities[3].type != 'composite' && {'opacity' : '0.2'}">
+						<img src="res/icons/water.png" ng-style="selectedChampion.abilities[3].type != 'water' && {'opacity' : '0.2'}">
+						<img src="res/icons/fire.png" ng-style="selectedChampion.abilities[3].type != 'fire' && {'opacity' : '0.2'}">
+						<img src="res/icons/earth.png" ng-style="selectedChampion.abilities[3].type != 'earth' && {'opacity' : '0.2'}">
+
+						<span class="passiveAbility" ng-hide="selectedChampion.abilities[3].type != 'passive'">
+						Passive</span>
+					</div> 
+						<h3> {{selectedChampion.abilities[3].name}}</h3> 
+						{{selectedChampion.abilities[3].description}} 
+					</td>
 				</tr>
 			</table>
 		</td>
@@ -84,11 +147,26 @@
 <table class="rightChampSelect">
 
 	<tr height="5%"><td class="theirChamps">Their Champions</td></tr>
-	<tr height="19%"><td><img src="{{theirChampions[0].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{theirChampions[1].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{theirChampions[2].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{theirChampions[3].asset}}"></td></tr>
-	<tr height="19%"><td><img src="{{theirChampions[4].asset}}"></td></tr>
+	<tr height="19%"><td>
+		<span class="rightChampionType" ng-hide="theirChampions[0] === undefined"> <img ng-src="res/icons/{{theirChampions[0].type}}.png"></span>
+		<img ng-src="{{theirChampions[0].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="rightChampionType" ng-hide="theirChampions[1] === undefined"> <img ng-src="res/icons/{{theirChampions[1].type}}.png"></span>
+		<img ng-src="{{theirChampions[1].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="rightChampionType" ng-hide="theirChampions[2] === undefined"> <img ng-src="res/icons/{{theirChampions[2].type}}.png"></span>
+		<img ng-src="{{theirChampions[2].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="rightChampionType" ng-hide="theirChampions[3] === undefined"> <img ng-src="res/icons/{{theirChampions[3].type}}.png"></span>
+		<img ng-src="{{theirChampions[3].asset}}">
+	</td></tr>
+	<tr height="19%"><td>
+		<span class="rightChampionType" ng-hide="theirChampions[4] === undefined"> <img ng-src="res/icons/{{theirChampions[4].type}}.png"></span>	
+		<img ng-src="{{theirChampions[4].asset}}">
+	</td></tr>
 
 </table>
 </body>

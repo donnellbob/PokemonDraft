@@ -2,7 +2,6 @@ body{
 	background-color: #00587D;
   	font-family: 'Montserrat', sans-serif;
   	color: white;
-  	font-size: 24px;
 }
 
 td{
@@ -25,7 +24,7 @@ td{
 	left: 0;
 	top: 0;
 	width: 26%;
-	font-size: 2vw;
+	font-size: 1.5vw;
 	height: 33.33%;
 	/*border: 4px solid white;*/
 }
@@ -91,7 +90,7 @@ td{
 
 .rightChampions {
 	width: 100%;
-	font-size: 2vw;
+	font-size: 1.5vw;
 	height: 33.33%;
 	border: 4px solid white;
 	text-align: right;
@@ -284,10 +283,18 @@ td{
 	color: white;
 	height: 33.33%;
 	width: 100%;
-	font-size: 2vw;
+	font-size: 1.5vw;
 	padding: 10px;
 	/*overflow: scroll;*/
 	border-left: 4px solid white;
+}
+
+.combatLogName {
+	display: inline;
+}
+
+.combatLogText {
+	display: inline;
 }
 
 .rightSide {
@@ -309,7 +316,7 @@ td{
 }
 
 .combatLog h3 {
-	font-size: 2.5vw;
+	font-size: 1.5vw;
 	color: #FF8800;
 	margin: 0;
 	text-align: center;

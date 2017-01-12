@@ -84,4 +84,22 @@ table tr:last-child{
    background-color: #0088CD; 
  }
 
+ .serverModal {
+ 	background-color: #00578D;
+ 	color: white;
+ }
+
+ .serverModal h2 {
+ 	color: #51A351;
+ 	text-align: center;
+ }
+
+ .close {
+ 	color: white;
+ }
+
+ .close:hover {
+ 	color: white;
+ }
+
 

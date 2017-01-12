@@ -122,7 +122,7 @@ app.factory('championService', function(){
 					{
 						name : "Attack",
 						description : "Strike your opponent for 40 Composite damage",
-						type: "fire",
+						type: "composite",
 						cost : 25,
 						damage : 40,
 						special : false
@@ -130,7 +130,7 @@ app.factory('championService', function(){
 					{
 						name : "Quick Attack",
 						description : "Quickly strike your opponent for Composite damage",
-						type: "fire",
+						type: "composite",
 						cost: 50,
 						damage : 55,
 						special : false
@@ -138,7 +138,7 @@ app.factory('championService', function(){
 					{
 						name : "Super Quick Attack",
 						description : "With superior speed strike opponent dealing 70 damage",
-						type: "fire",
+						type: "composite",
 						cost : 75,
 						damage : 70,
 						special : false
@@ -146,7 +146,7 @@ app.factory('championService', function(){
 					{
 						name : "Extreme Attack",
 						description : "With extreme force swiftly strike opponent dealing 85 damage",
-						type: "fire",
+						type: "composite",
 						cost : 100,
 						damage : 85,
 						special : false
@@ -404,7 +404,7 @@ app.factory('championService', function(){
 						type: "composite",
 						cost : 80,
 						damage : 0,
-						special : "groupDefenseBonus"
+						special : "groupDefenseBoost"
 					}
 				]
 
