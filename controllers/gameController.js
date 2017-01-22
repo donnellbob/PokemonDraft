@@ -17,7 +17,6 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 	// If opponent picks first dont show champion
 	var opponentChampionPickFirst = false;
 
-
 	$scope.swapChampion = function(id){
 		$scope.playerChampion = $scope.yourTeam[id];
 		lobbyService.playerChampion = $scope.playerChampion;
@@ -198,9 +197,10 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			$scope.playerChampion = $scope.yourTeam[data.playerChampionId];
 			lobbyService.playerChampion  = $scope.playerChampion;
 
-			if(opponentChampionPickFirst != false && $scope.firstChampionPicked === true) {
+			if(opponentChampionPickFirst != false && $scope.firstChampionPicked === "tentative") {
 				$scope.opponentChampion = opponentChampionPickFirst;
 				lobbyService.opponentChampion = opponentChampionPickFirst;
+				$scope.firstChampionPicked = true;
 			}
 		}else if(data.sender != socket.io.engine.id && $scope.firstChampionPicked === false){
 			opponentChampionPickFirst = $scope.theirTeam[data.playerChampionId];
@@ -210,7 +210,7 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 		}
 
 		// TBD if this needs to be here
-		if($scope.playerChampion.speed > $scope.opponentChampion.speed && $scope.firstChampionPicked === true){
+		if($scope.playerChampion.speed > $scope.opponentChampion.speed && $scope.firstChampionPicked != false){
 			$scope.isTurn = true;
 			$scope.newRound = false;
 		}else if($scope.playerChampion.speed === $scope.opponentChampion.speed) {
@@ -226,7 +226,10 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 			$scope.newRound = false;
 		}
 
-		$scope.firstChampionPicked = true;
+		// To hide first champion picked till both players picked
+		if($scope.firstChampionPicked === false) {
+			$scope.firstChampionPicked = "tentative";
+		}
 
 	});
 
@@ -261,6 +264,7 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 				$scope.opponentChampion.attackBonus += 1;
 			}
 			$scope.opponentChampion.attackStatus = _.without($scope.opponentChampion.attackStatus, "blind");
+			gameAnimation.opponentDarken("return");
 		}
 		if(_.contains($scope.playerChampion.attackStatus, "blind") && $scope.isTurn === false) {
 			console.log("Removing players blind effect!");
@@ -272,6 +276,7 @@ app.controller('gameController', function($scope, $http, lobbyService, $modal, $
 				$scope.playerChampion.attackBonus += 1;
 			}
 			$scope.playerChampion.attackStatus = _.without($scope.playerChampion.attackStatus, "blind");
+			gameAnimation.playerDarken("return");
 		}
 
 		//// Defense Boost ////

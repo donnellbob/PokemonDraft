@@ -1,4 +1,4 @@
-app.factory('gameAnimation', function($timeout){
+app.factory('gameAnimation', function($timeout, $interval){
 	return {
 		playerBasicAttack : function() {
 			document.getElementById("playerAnimate").style.left = 10 + "%";
@@ -45,6 +45,56 @@ app.factory('gameAnimation', function($timeout){
 				document.getElementById("opponentImage").style.opacity = 1;
 			}
 
+		},
+		playerDarken : function(state) {
+			if(state === "blinded") {
+				var darkness = 100;
+				var reset = false;
+				playerDarkenInterval = $interval(function() {
+					if(reset === false) {
+						darkness--;
+					} else{
+						darkness++;
+					}
+					if(darkness === 75 && reset === true){
+						reset = false;
+					}
+					if(darkness === 25 && reset === false){
+						reset = true;
+					}
+
+					document.getElementById("playerImage").style.filter = "brightness(" + darkness + "%)";
+		
+		        }, 50);
+				
+			}else if (state === "return") {
+				$interval.cancel(playerDarkenInterval);
+			}
+		},
+		opponentDarken : function(state) {
+			if(state === "blinded") {
+				var darkness = 100;
+				var reset = false;
+				opponentDarkenInterval = $interval(function() {
+					if(reset === false) {
+						darkness--;
+					} else{
+						darkness++;
+					}
+					if(darkness === 75 && reset === true){
+						reset = false;
+					}
+					if(darkness === 25 && reset === false){
+						reset = true;
+					}
+
+					document.getElementById("opponentImage").style.filter = "brightness(" + darkness + "%)";
+		
+		        }, 50);
+				
+			}else if (state === "return") {
+				$interval.cancel(opponentDarkenInterval);
+			}
 		}
 	};
 });

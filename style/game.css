@@ -38,12 +38,19 @@ td{
 	margin-right: 10px;
 }
 
+/*.deathIconOpponent {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+*/
 .deathIconOpponent img{
+	/*position: relative;*/
 	float: left;
-	max-width: 15%;
-	max-height: 65%;
-	height: auto;
+	/*height: 100%;*/
+	max-width: 10%;
 	width: auto;
+	height: auto;
 	margin-left: 10px;
 }
 
@@ -387,6 +394,12 @@ td{
 .opponentHealthBar {
 	display: block;
 	float: right;
+}
+
+.blindedText {
+	font-size: 2vw;
+	color: white;
+	text-align: center;
 }
 
 /*Poison*/

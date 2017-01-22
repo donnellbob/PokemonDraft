@@ -34,7 +34,7 @@ app.factory('championAbilities', function(lobbyService, gameAnimation, combatLog
 		} else { 
 			defender.health -= damage;
 		}
-		combatLog.basicAttack(attacker.name, damage, attacker.abilities[id].type,  checkCounter(attacker.abilities[id].type, defender.type), defender.name, isTurn)
+		combatLog.basicAttack(attacker.name, damage, attacker.type,  checkCounter(attacker.type, defender.type), defender.name, isTurn)
 	}
 
 	function basicAttack(isTurn, id) {
@@ -110,12 +110,14 @@ app.factory('championAbilities', function(lobbyService, gameAnimation, combatLog
 				var championAbility = _.findWhere(lobbyService.playerChampion.abilities, {special: "blind"});
 				specialAttack(true, championAbility.damage);
 				combatLog.blind(lobbyService.opponentChampion.name, isTurn);
+				gameAnimation.opponentDarken("blinded");
 			} else {
 				lobbyService.playerChampion.attackBonus = 0;
 				lobbyService.playerChampion.attackStatus.push("blind");
 				var championAbility = _.findWhere(lobbyService.opponentChampion.abilities, {special: "blind"});
 				specialAttack(false, championAbility.damage);
 				combatLog.blind(lobbyService.playerChampion.name, isTurn);
+				gameAnimation.playerDarken("blinded");
 			}
 		},
 		attackBoost : function(isTurn) {
