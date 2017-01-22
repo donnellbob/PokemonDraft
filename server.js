@@ -21,4 +21,4 @@ require('./routes/chatService')(app, io);
 
 
 
-server.listen(4200); 
+server.listen(80); 
